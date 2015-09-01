@@ -6,15 +6,6 @@ var Search = function(problem, strategy){
 	this.repeated = [];
 };
 
-Search.prototype.getNode = function(succesor,parent){
-	return {
-		state: succesor.state,	
-		action: succesor.action,
-		cost: parent.cost + succesor.cost,
-		parent: parent,
-		depth: parent.depth+1
-	}
-};
 
 Search.prototype.printPath = function(node){
 	var path = [];
