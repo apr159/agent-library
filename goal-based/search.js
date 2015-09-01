@@ -43,6 +43,7 @@ Search.prototype.run = function(){
 		
 		
 		if (this.problem.isGoal(node.state)){
+			console.log("Felicidades encontraste la solucion");
 			console.log(this.printPath(node))
 			return "Success";
 		}else{
