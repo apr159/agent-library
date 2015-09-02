@@ -1,6 +1,6 @@
 var Search = require("./search");
 var Vacuum = require("./vacuum");
-var Strategy = require("./breath");
+var Strategy = require("./ucs");
 
 
 var strategy = new Strategy();
