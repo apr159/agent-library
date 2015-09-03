@@ -10,3 +10,5 @@ var problem = new Vacuum({room1:'Clean',room2:'Dirty',vacuum:'Left'});
 var search = new Search(problem,strategy);
 
 search.run();
+
+//Equipo los omegas
