@@ -2,6 +2,11 @@ var WaterJug = function(initial){
 	this.initial = initial;
 }
 
+WaterJug.prototype.equals = function(state1, state2){
+	return state1.glass1 === state2.glass1  && state1.glass2 === state2.glass2
+}
+
+
 WaterJug.prototype.isGoal = function(current){
 	return current.glass1 === 2 && current.glass2 === 0
 }

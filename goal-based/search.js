@@ -38,6 +38,15 @@ Search.prototype.run = function(){
 	}
 	this.strategy.add(this.queue, initialNode);
 
+	var isRepeated = function(problem, repeated, current){
+		for (var i=0;i<repeated.length;i++){
+			if (problem.equals(repeated[i],current)){
+				return true;
+			}
+		};
+		return false;
+	}
+
 	while (this.queue.length>0){
 		var node = this.queue.shift();
 		
@@ -46,11 +55,16 @@ Search.prototype.run = function(){
 			console.log(this.printPath(node))
 			return "Success";
 		}else{
-			var succesors = this.problem.successors(node.state);
-			for (var i=0;i<succesors.length;i++){
-				this.strategy.add(this.queue,getNode(succesors[i],node));
+			if (!isRepeated(this.problem, this.repeated,node.state)){
+				this.repeated.push(node.state);
+				var succesors = this.problem.successors(node.state);
+				for (var i=0;i<succesors.length;i++){
+					this.strategy.add(this.queue,getNode(succesors[i],node));
+
+				}
 
 			}
+
 
 
 		}
