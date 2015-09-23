@@ -74,8 +74,6 @@ Puzzle.prototype.successors = function(current) {
 	var test = current;
 	console.log("Current: ");
 	console.log(current);
-	console.log("\nTest: ");
-	console.log(test);
 
 	//Mover hacia arriba
 	if(test.blank[1] != 0){

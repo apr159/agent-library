@@ -29,6 +29,9 @@ Search.prototype.run = function(){
 		}
 	};
 
+	var nodes = [];
+	var mayor = 0, it = 0;
+
 	var initialNode = {
 		state: this.problem.initial,
 		action: '',
@@ -43,22 +46,32 @@ Search.prototype.run = function(){
 		var node = this.queue.shift();
 		console.log("Aqui: ")
 		console.log(node.state);
-		
-		
-		if (this.problem.isGoal(node.state)){
+		console.log("isgoal");
+		console.log(this.problem.isGoal(node.state.scenary));
+		if (this.problem.isGoal(node.state.scenary)){
 			console.log(this.printPath(node))
 			return "Success";
 		}else{
 			var succesors = this.problem.successors(node.state);
 			for (var i=0;i<succesors.length;i++){
-				this.strategy.add(this.queue,getNode(succesors[i],node));
+				//this.strategy.add(this.queue,getNode(succesors[i],node));
+				nodes.push(getNode(succesors[i],node));
 
 			}
 
+			for(var i=0, l = nodes.length;i<l;i++){
+				if(nodes[i].cost<mayor){
+					mayor = nodes[i].cost;
+					it = i;
+				}
+			}
+			this.strategy.add(this.queue,nodes[it]);
+			it=0;
+
 
 		}
-		//console.log(this.printPath(node));
-		//console.log("**************************************************************************************************************")
+		console.log(this.printPath(node));
+		console.log("**************************************************************************************************************")
 	}
 
 };
