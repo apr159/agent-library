@@ -6,7 +6,6 @@ Juego8.prototype.isGoal = function(current){
 	return current.espacio1 === 1 && current.espacio2 === 2 && current.espacio3===3 &
         current.espacio4 === 4 && current.espacio5 === 5 && current.espacio6===6 &
          current.espacio7 === 7 && current.espacio8 === 8 && current.espacio9===0;
-	
 }
 
 Juego8.prototype.successors = function(current){
