@@ -1,1 +1,9 @@
-HOLI
+var Puzzle = funtion (initial){
+	this.initial=initial;
+}
+
+Puzzle.prototype.isGoal=function(current){
+	return current.celda1===1 && current.celda2===2 && current.celda3===3 && current.celda4===4 && current.celda5===5 && current.celda6===6 && current.celda7===7 && current.celda8===8 && current.celda9===0 
+}
+
+
