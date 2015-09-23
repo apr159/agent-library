@@ -10,7 +10,6 @@ Puzzle.prototype.successors=function(current){
 	var successors=[];
 
 //CASO 1 (cero en celda1)
-
         if (current.celda1==0){
         	var successors1={
         		state:{celda1: current.celda2, celda2: 0, celda3: current.celda3, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
@@ -29,10 +28,9 @@ Puzzle.prototype.successors=function(current){
 }
 
 //CASO 2 (cero en celda2)
-
        if(current.celda2==0){
        var successors1 = {
-           state :{celda1: 0, celda2: current: current.celda1, celda3: current.celda3, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+           state :{celda2: current.celda1, celda1: 0, celda3: current.celda3, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
            },
          action:'Derecha',
          cost:1
@@ -40,7 +38,7 @@ Puzzle.prototype.successors=function(current){
          successors.push(successors1);
 
          var successors2={
-           state :{celda1: current.celda1, celda2: current: current.celda5, celda3: current.celda3, celda4: current.celda4, celda5: 0, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+           state :{celda2: current.celda5, celda1: current.celda1, celda3: current.celda3, celda4: current.celda4, celda5: 0, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
            }, 
            action:'Arriba',
            cost:1
@@ -48,7 +46,7 @@ Puzzle.prototype.successors=function(current){
          successors.push(successors2)
 
         var successors3 = {
-        state :{celda1: current.celda1, celda2: current: current.celda3, celda3: 0, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        state :{celda2: current.celda3, celda1: current.celda1,  celda3: 0, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
         },
         action:'Izquierda',
         cost:1
@@ -57,10 +55,9 @@ Puzzle.prototype.successors=function(current){
 }
 
 //CASO 3 (cero en celda3)
-
         if (current.celda3==0){
         	var successors1={
-        		state:{celda1: current.celda1, celda2: 0, celda3: current.celda2, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        		state:{celda3: current.celda2, celda1: current.celda1, celda2: 0, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
         	}, 
         	action: 'Derecha',
         	cost: 1
@@ -68,7 +65,7 @@ Puzzle.prototype.successors=function(current){
         successors.push(successors1);
 
       var successors2={
-        		state:{celda1: current.celda1, celda2: current.celda2, celda3: current.celda6, celda4: current.celda4, celda5: current.celda5, celda6: 0, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        		state:{celda3: current.celda6, celda1: current.celda1, celda2: current.celda2,  celda4: current.celda4, celda5: current.celda5, celda6: 0, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
         	}, 
         	action: 'Arriba',
         	cost: 1
@@ -82,7 +79,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda4: current.celda1, celda1: 0, celda2: current.celda2, celda3: current.celda3, celda5: current.celda5, celda6: current.celda6, celda7: current.celda7, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Bajar',
 			cost:1
 		}
@@ -92,7 +88,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda4: current.celda7, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda5: current.celda5, celda6: current.celda6, celda7: 0, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Subir',
 			cost:1
 		}
@@ -102,7 +97,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda4: current.celda5, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda5: 0, celda6: current.celda6, celda7: current.celda7, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Izquierda',
 			cost:1
 		}
@@ -116,7 +110,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda5: current.celda2, celda1: current.celda1, celda2: 0, celda3: current.celda3, celda4: current.celda4, celda6: current.celda6, celda7: current.celda7, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Bajar',
 			cost:1
 		}
@@ -126,7 +119,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda5: current.celda8, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda4: current.celda4, celda6: current.celda6, celda7: current.celda7, celda8: 0, celda9: current.celda9
 			},
-
 			action:'Subir',
 			cost:1
 		}
@@ -136,7 +128,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda5: current.celda4, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda4: 0, celda6: current.celda6, celda7: current.celda7, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Derecha',
 			cost:1
 		}
@@ -146,7 +137,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda5: current.celda6, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda4: current.celda4, celda6: 0, celda7: current.celda7, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Izquierda',
 			cost:1
 		}
@@ -160,7 +150,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda6: current.celda3, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda4: current.celda4, celda5: current.celda5,  celda7: current.celda7, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Bajar',
 			cost:1
 		}
@@ -170,7 +159,6 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda6: current.celda9, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda4: current.celda4, celda5: current.celda5, celda7: current.celda7, celda8: current.celda8, celda9: 0
 			},
-
 			action:'Subir',
 			cost:1
 		}
@@ -180,14 +168,13 @@ Puzzle.prototype.successors=function(current){
 			state:{
 			celda6: current.celda5, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda4: current.celda4, celda5: 0, celda7: current.celda7, celda8: current.celda8, celda9: current.celda9
 			},
-
 			action:'Derecha',
 			cost:1
 		}
 		successors.push(successors3);
 	}
 	
-//CASO 7: cero en la celda 7
+//CASO 7 (cero en la celda 7)
 	if(current.celda7==0){
 		var successors1={
 			state:{
@@ -206,7 +193,7 @@ Puzzle.prototype.successors=function(current){
 		}
 		successors.push(successors2);
 	}
-	//Caso 8: cero en la celda 8
+//CASO 8 (cero en la celda 8)
 	if(current.celda8==0){
 		var successors1={
 			state:{
@@ -233,7 +220,7 @@ Puzzle.prototype.successors=function(current){
 		}
 		successors.push(successors3);
 	}
-	//Caso 9: cero en la celda 9
+//CASO 9 (cero en la celda 9)
 	if(current.celda9==0){
 		var successors1={
 			state:{
