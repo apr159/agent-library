@@ -9,7 +9,7 @@ Puzzle.prototype.isGoal=function(current){
 Puzzle.prototype.successors=function(current){
 	var successors=[];
 
-       //CASO 1 (cero en celda1)
+//CASO 1 (cero en celda1)
 
         if (current.celda1==0){
         	var successors1={
@@ -27,7 +27,8 @@ Puzzle.prototype.successors=function(current){
         }
         successors.push(successors2);
 }
-       //CASO 2 (cero en celda2)
+
+//CASO 2 (cero en celda2)
 
        if(current.celda2==0){
        var successors1 = {
@@ -55,7 +56,7 @@ Puzzle.prototype.successors=function(current){
         successors.push(successors3);
 }
 
-       //CASO 3 (cero en celda3)
+//CASO 3 (cero en celda3)
 
         if (current.celda3==0){
         	var successors1={
