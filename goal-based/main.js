@@ -1,14 +1,19 @@
 var Search = require("./search");
-var Vacuum = require("./vacuum");
+var Problem = require("./water-jug");
 var Strategy = require("./breath");
 
 
 var strategy = new Strategy();
-var problem = new Vacuum({room1:'Clean',room2:'Dirty',vacuum:'Left'});
+var problem = new Problem({glass1:4,glass2:3});
 
 
 var search = new Search(problem,strategy);
 
 search.run();
-
+/*
+<<<<<<< HEAD
 //Equipo Los Omegas
+=======
+//Equipo los omegas
+>>>>>>> master
+*/
