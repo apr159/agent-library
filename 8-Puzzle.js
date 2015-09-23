@@ -258,4 +258,4 @@ Puzzle.prototype.successors = function(current){
 	
 };
 
-module.exports = 8-Puzzle;
+module.exports = Puzzle;
