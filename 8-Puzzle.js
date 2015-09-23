@@ -9,6 +9,72 @@ Puzzle.prototype.isGoal=function(current){
 Puzzle.prototype.successors=function(current){
 	var successors=[];
 
+       //CASO 1 (cero en celda1)
+
+        if (current.celda1==0){
+        	var successors1={
+        		state:{celda1: current.celda2, celda2: 0, celda3: current.celda3, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        	}, 
+        	action: 'Izquierda',
+        	cost: 1
+        }
+        successors.push(successors1);
+        var successors2={
+        state :{celda1: current.celda4, celda2: current.piece2, celda3: current.celda3, celda4: 0, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        },
+        action:'Arriba',
+        cost:1
+        }
+        successors.push(successors2);
+}
+       //CASO 2 (cero en celda2)
+
+       if(current.celda2==0){
+       var successors1 = {
+           state :{celda1: 0, celda2: current: current.celda1, celda3: current.celda3, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+           },
+         action:'Derecha',
+         cost:1
+       }
+         successors.push(successors1);
+
+         var successors2={
+           state :{celda1: current.celda1, celda2: current: current.celda5, celda3: current.celda3, celda4: current.celda4, celda5: 0, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+           }, 
+           action:'Arriba',
+           cost:1
+         }
+         successors.push(successors2)
+
+        var successors3 = {
+        state :{celda1: current.celda1, celda2: current: current.celda3, celda3: 0, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        },
+        action:'Izquierda',
+        cost:1
+        }
+        successors.push(successors3);
+}
+
+       //CASO 3 (cero en celda3)
+
+        if (current.celda3==0){
+        	var successors1={
+        		state:{celda1: current.celda1, celda2: 0, celda3: current.celda2, celda4: current.celda4, celda5: current.celda5, celda6: current.celda6, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        	}, 
+        	action: 'Derecha',
+        	cost: 1
+        }
+        successors.push(successors1);
+
+      var successors2={
+        		state:{celda1: current.celda1, celda2: current.celda2, celda3: current.celda6, celda4: current.celda4, celda5: current.celda5, celda6: 0, celda7: current.piece7, celda8: current.celda8, celda9: current.celda9
+        	}, 
+        	action: 'Arriba',
+        	cost: 1
+        }
+        successors.push(successors2);
+}
+
 // CASO 4 (cero en celda 4)
 	if(current.celda4==0){
 		var successors1={
