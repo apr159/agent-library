@@ -50,3 +50,15 @@ Puzzle.prototype.successors=function(current){
 		}
 		successors.push(successors4);
 	}
+	//CASO 7: cero en la celda 7
+	if(current.celda7==0){
+		var successors1={
+			state:{
+			celda5: current.celda5, celda1: current.celda1, celda2: current.celda2, celda3: current.celda3, celda4: 0, celda6: current.celda6, celda7: current.celda4, celda8: current.celda8, celda9: current.celda9
+			},
+
+			action:'Bajar',
+			cost:1
+		}
+	}
+}
