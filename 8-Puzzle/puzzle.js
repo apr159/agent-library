@@ -1,4 +1,4 @@
-Array.prototype.equals = function (array) {
+/*Array.prototype.equals = function (array) {
     // if the other array is a falsy value, return
     if (!array)
         return false;
@@ -20,10 +20,34 @@ Array.prototype.equals = function (array) {
         }           
     }       
     return true;
-}   
+}   */
+
+var equals = function (current, array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time 
+    if (current.length != array.length)
+        return false;
+
+    for (var i = 0, l=current.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (current[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!current[i].equals(array[i]))
+                return false;       
+        }           
+        else if (current[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
 
 var comparar = function(current, goal){
-	error = 0;
+	var error = 0;
 
 	for (var i=0,l=current.length;i<l;i++) {
 		if(current[i] != goal[i])
@@ -37,61 +61,74 @@ var Puzzle = function(initial) {
 }
 
 Puzzle.prototype.isGoal = function(current) {
-	return current.equals([[1,4,7],[2,5,8],[3,6,0]]);
+	return equals(current, [[1,4,7],[2,5,8],[3,6,0]]);
 }
 
-var.prototype.successors = function(current) {
+Puzzle.prototype.successors = function(current) {
+	//Lista de los posibles movimientos
 	var successors = [];
+	var test = current;
 
-	if(current.blank[1] != 0){
-		temp = current[current.blank[0]][current.blank[1]-1];
-		current[current.blank[0]][current.blank[1]-1] = current[current.blank[0]][current.blank[1]];
-		current[current.blank[0]][current.blank[1]] = temp
+	//Mover hacia arriba
+	if(test.blank[1] != 0){
+		temp = test.scenary[test.blank[0]][test.blank[1]-1];
+		test.scenary[test.blank[0]][test.blank[1]-1] = test.scenary[test.blank[0]][test.blank[1]];
+		test.scenary[test.blank[0]][test.blank[1]] = temp
+		test.blank = [test.blank[0],test.blank[1]-1];
 		var successor = {
-			state: current,
-			action: arriba,
-			cost: comparar(current,[[1,4,7],[2,5,8],[3,6,0]])
+			state: test,
+			action: "Arriba",
+			cost: comparar(test.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
-		succesors.push(successor);
+		successors.push(successor);
+		test = current;
 	}
 
-	if(current.blank[1] != 2){
-		temp = current[current.blank[0]][current.blank[1]+1];
-		current[current.blank[0]][current.blank[1]+1] = current[current.blank[0]][current.blank[1]];
-		current[current.blank[0]][current.blank[1]] = temp
+	//Mover hacia abajo
+	if(test.blank[1] != 2){
+		temp = test.scenary[test.blank[0]][test.blank[1]+1];
+		test.scenary[test.blank[0]][test.blank[1]+1] = test.scenary[test.blank[0]][test.blank[1]];
+		test.scenary[test.blank[0]][test.blank[1]] = temp
+		test.blank = [test.blank[0],test.blank[1]+1];
 		var successor = {
-			state: current,
-			action: arriba,
-			cost: comparar(current,[[1,4,7],[2,5,8],[3,6,0]])
+			state: test,
+			action: "Abajo",
+			cost: comparar(test.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
-		succesors.push(successor);
+		successors.push(successor);
+		test = current;
 	}
 
-	if(current.blank[0] != 0){
-		temp = current[current.blank[0]-1][current.blank[1]];
-		current[current.blank[0]-1][current.blank[1]] = current[current.blank[0]][current.blank[1]];
-		current[current.blank[0]][current.blank[1]] = temp
+	//Mover hacia la izquierda
+	if(test.blank[0] != 0){
+		temp = test.scenary[test.blank[0]-1][test.blank[1]];
+		test.scenary[test.blank[0]-1][test.blank[1]] = test.scenary[test.blank[0]][test.blank[1]];
+		test.scenary[test.blank[0]][test.blank[1]] = temp
+		test.blank = [test.blank[0]-1,test.blank[1]];
 		var successor = {
-			state: current,
-			action: arriba,
-			cost: comparar(current,[[1,4,7],[2,5,8],[3,6,0]])
+			state: test,
+			action: "Izquierda",
+			cost: comparar(test.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
-		succesors.push(successor);
+		successors.push(successor);
+		test = current;
 	}
 
-	if(current.blank[0] != 2){
-		temp = current[current.blank[0]+1][current.blank[1]];
-		current[current.blank[0]+1][current.blank[1]] = current[current.blank[0]][current.blank[1]];
-		current[current.blank[0]][current.blank[1]] = temp
+	//Mover hacia la derecha
+	if(test.blank[0] != 2){
+		temp = test.scenary[test.blank[0]+1][test.blank[1]];
+		test.scenary[test.blank[0]+1][test.blank[1]] = test.scenary[test.blank[0]][test.blank[1]];
+		test.scenary[test.blank[0]][test.blank[1]] = temp
+		test.blank = [test.blank[0]+1,test.blank[1]];
 		var successor = {
-			state: current,
-			action: arriba,
-			cost: comparar(current,[[1,4,7],[2,5,8],[3,6,0]])
+			state: test,
+			action: "Derecha",
+			cost: comparar(test.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
-		succesors.push(successor);
+		successors.push(successor);
 	}	
 
-	return succesors;
+	return successors;
 }
 
 module.exports = Puzzle;

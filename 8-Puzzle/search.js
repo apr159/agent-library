@@ -39,6 +39,7 @@ Search.prototype.run = function(){
 	this.strategy.add(this.queue, initialNode);
 
 	while (this.queue.length>0){
+		console.log("Entre");
 		var node = this.queue.shift();
 		
 		
