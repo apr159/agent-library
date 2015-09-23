@@ -39,8 +39,10 @@ Search.prototype.run = function(){
 	this.strategy.add(this.queue, initialNode);
 
 	while (this.queue.length>0){
-		console.log("Entre");
+		//console.log("Entre");
 		var node = this.queue.shift();
+		console.log("Aqui: ")
+		console.log(node.state);
 		
 		
 		if (this.problem.isGoal(node.state)){
@@ -55,6 +57,8 @@ Search.prototype.run = function(){
 
 
 		}
+		//console.log(this.printPath(node));
+		//console.log("**************************************************************************************************************")
 	}
 
 };

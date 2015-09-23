@@ -2,8 +2,10 @@ var comparar = function(current, goal){
 	var error = 0;
 
 	for (var i=0,l=current.length;i<l;i++) {
-		if(current[i] != goal[i])
-			error++;
+		for (var j=0,m=3;j<m;j++){
+			if(current[i][j] != goal[i][j])
+				error++;
+		}
 	}
 	return error;
 }
@@ -18,16 +20,18 @@ var equals = function (current, array) {
         return false;
 
     for (var i = 0, l=current.length; i < l; i++) {
-        // Check if we have nested arrays
-        if (current[i] instanceof Array && array[i] instanceof Array) {
-            // recurse into the nested arrays
-            if (!(current[i] == array[i]))
-                return false;       
-        }           
-        else if (current[i] != array[i]) { 
-            // Warning - two different object instances will never be equal: {x:20} != {x:20}
-            return false;   
-        }           
+    	for (var j=0,m=3;j<m;j++) {
+    		// Check if we have nested arrays
+	        if (current[i][j] instanceof Array && array[i][j] instanceof Array) {
+	            // recurse into the nested arrays
+	            if (!(current[i][j] == array[i][j]))
+	                return false;       
+	        }           
+	        else if (current[i][j] != array[i][j]) { 
+	            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+	            return false;   
+	        }  
+    	}         
     }       
     return true;
 }

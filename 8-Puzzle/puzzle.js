@@ -32,16 +32,18 @@ var equals = function (current, array) {
         return false;
 
     for (var i = 0, l=current.length; i < l; i++) {
-        // Check if we have nested arrays
-        if (current[i] instanceof Array && array[i] instanceof Array) {
-            // recurse into the nested arrays
-            if (!current[i].equals(array[i]))
-                return false;       
-        }           
-        else if (current[i] != array[i]) { 
-            // Warning - two different object instances will never be equal: {x:20} != {x:20}
-            return false;   
-        }           
+    	for (var j=0,m=3;j<m;j++) {
+    		// Check if we have nested arrays
+	        if (current[i][j] instanceof Array && array[i][j] instanceof Array) {
+	            // recurse into the nested arrays
+	            if (!(current[i][j] == array[i][j]))
+	                return false;       
+	        }           
+	        else if (current[i][j] != array[i][j]) { 
+	            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+	            return false;   
+	        }  
+    	}         
     }       
     return true;
 }
@@ -50,8 +52,10 @@ var comparar = function(current, goal){
 	var error = 0;
 
 	for (var i=0,l=current.length;i<l;i++) {
-		if(current[i] != goal[i])
-			error++;
+		for (var j=0,m=3;j<m;j++){
+			if(current[i][j] != goal[i][j])
+				error++;
+		}
 	}
 	return error;
 }
@@ -68,6 +72,10 @@ Puzzle.prototype.successors = function(current) {
 	//Lista de los posibles movimientos
 	var successors = [];
 	var test = current;
+	console.log("Current: ");
+	console.log(current);
+	console.log("\nTest: ");
+	console.log(test);
 
 	//Mover hacia arriba
 	if(test.blank[1] != 0){
@@ -127,6 +135,11 @@ Puzzle.prototype.successors = function(current) {
 		}
 		successors.push(successor);
 	}	
+	console.log("\nSuccessors: ");
+	for(var i=0, l=successors.length;i<l;i++){
+		console.log(successors[i].state);
+	}
+	console.log('******************************************************************');
 
 	return successors;
 }
