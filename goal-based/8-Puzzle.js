@@ -1,4 +1,4 @@
-var Puzzle = funtion (initial){
+var Puzzle = function (initial){
 	this.initial=initial;
 }
 
