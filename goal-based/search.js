@@ -21,6 +21,7 @@ Search.prototype.printPath = function(node){
 		path.unshift({action:n.action,state:n.state, cost:n.cost, h:n.h, depth:n.depth});
 		n = n.parent;
 	}
+	console.log("\nPasos necesarios = ", path.length, "\n");
 	return path;
 };
 
@@ -116,7 +117,8 @@ Search.prototype.run = function(){
 			var nodeState = node.state;
 			var succesors = this.problem.successors(node.state);
 
-			console.log("para ", nodeState);
+			//console.log("para ", nodeState);
+			
 			/**
 				for que compara nodo actual con node visitados anteriormente,
 				si se encuentra que el estado del nodo actual es igual al de
@@ -125,15 +127,19 @@ Search.prototype.run = function(){
 			**/
 			for (var j=0; j<this.repeated.length; j++){
 				var repeatedState = this.repeated[j].state;
-				console.log("comparar con ", repeatedState);
+				
+				//console.log("comparar con ", repeatedState);
 
 				if(JSON.stringify(nodeState) === JSON.stringify(repeatedState)){ 
-					console.log("Estado repetido = ", repeatedState ); 
+					
+					//console.log("Estado repetido = ", repeatedState ); 
+					
 					var repeatedBool = true;
 				}				
 			}
 			
-			console.log();
+			//console.log();
+			
 			/**
 				si la variable repeatedBool es verdadera expanden los sucesores del
 				nodo actual y se agrega a la lista de nodos visitados, de lo contrario
