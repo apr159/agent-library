@@ -18,7 +18,7 @@ Search.prototype.printPath = function(node){
 	var path = [];
 	var n = node;
 	while (n!=undefined){
-		path.unshift({action:n.action,state:n.state});
+		path.unshift({action:n.action,state:n.state, cost:n.cost, h:n.h, depth:n.depth});
 		n = n.parent;
 	}
 	return path;
@@ -34,11 +34,12 @@ Search.prototype.run = function(){
 	la repesentacion de un nodo del arbol de busqueda.
 	**/
 	
-	var getNode = function(succesor,parent){
+	var getNode = function(succesor,parent, h){
 		return {
 			state: succesor.state,	
 			action: succesor.action,
 			cost: parent.cost + succesor.cost,
+			h: h,
 			parent: parent,
 			depth: parent.depth+1
 		}
@@ -55,6 +56,7 @@ Search.prototype.run = function(){
 		state: this.problem.initial,
 		action: '',
 		cost: 0,
+		h: this.problem.h(this.problem.initial),
 		parent: undefined,
 		depth: 0
 
@@ -69,6 +71,7 @@ Search.prototype.run = function(){
 		state: {},
 		action: '',
 		cost: 0,
+		h: 0,
 		parent: undefined,
 		depth: 0
 
@@ -139,7 +142,7 @@ Search.prototype.run = function(){
 			**/
 			if(!repeatedBool){
 				for (var i=0; i<succesors.length; i++){
-					this.strategy.add(this.queue, getNode(succesors[i], node));
+					this.strategy.add(this.queue, getNode(succesors[i], node, this.problem.h(succesors[i].state)));
 				}
 				this.strategy.add(this.repeated, node);
 				repeatedBool = false;

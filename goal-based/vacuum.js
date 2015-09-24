@@ -12,6 +12,15 @@ Vacuum.prototype.isGoal = function(current){
 	return current.room1 == 'Clean' && current.room2 == 'Clean'
 }
 
+//heuristica para problema Vacuum
+Vacuum.prototype.h = function(current){
+	var h=0;
+	current.room1 == "Dirty" ? h++ : h;
+	current.room2 == "Dirty" ? h++ : h;
+
+	return h
+}
+
 /**
 La funcion successors guarda en un arreglo llamado tambien
 succesor, todos los posibles hijos que se pusieran desprender
@@ -38,6 +47,7 @@ Vacuum.prototype.successors = function(current){
 					 vacuum:'Right'},
 			action:'Right',
 			cost:1
+			
 		}
 		successors.push(succesor);
 		
@@ -51,6 +61,7 @@ Vacuum.prototype.successors = function(current){
 					 vacuum:'Left'},
 			action:'Left',
 			cost:1
+			
 		}
 		successors.push(succesor);
 		
@@ -63,6 +74,7 @@ Vacuum.prototype.successors = function(current){
 					 vacuum:'Left'},
 			action:'Aspire',
 			cost:1
+			
 		}
 		successors.push(succesor);
 	}
@@ -73,6 +85,7 @@ Vacuum.prototype.successors = function(current){
 					 vacuum:'Right'},
 			action:'Aspire',
 			cost:1
+			
 		}
 		successors.push(succesor);
 	}

@@ -6,6 +6,11 @@ WaterJug.prototype.isGoal = function(current){
 	return current.glass1 === 2 && current.glass2 === 0
 }
 
+WaterJug.prototype.h = function(current){
+	var h = 0;
+	return h
+}
+
 WaterJug.prototype.successors = function(current){
 	var successors = [];
 
@@ -15,6 +20,7 @@ WaterJug.prototype.successors = function(current){
 					 glass2:current.glass2},
 			action:'Llenar vaso 4',
 			cost:1
+			
 		}
 		successors.push(succesor);
 	}
@@ -25,6 +31,7 @@ WaterJug.prototype.successors = function(current){
 					 glass2:3},
 			action:'Llenar vaso 3',
 			cost:1
+			
 		}
 		successors.push(succesor);
 	}
@@ -35,6 +42,7 @@ WaterJug.prototype.successors = function(current){
 					 glass2:current.glass2},
 			action:'Vaciar vaso 4',
 			cost:1
+			
 		}
 		successors.push(succesor);
 	}
@@ -45,6 +53,7 @@ WaterJug.prototype.successors = function(current){
 					 glass2:0},
 			action:'Vaciar vaso 3',
 			cost:1
+			
 		}
 		successors.push(succesor);
 	}
@@ -55,6 +64,7 @@ WaterJug.prototype.successors = function(current){
 					 glass2:current.glass2-(4-current.glass1)},
 			action:'Pasar de vaso 3 a vaso 4',
 			cost:1
+			
 		}
 		successors.push(succesor);
 	}
