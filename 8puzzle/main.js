@@ -1,5 +1,5 @@
 //Variables para resolver el problema
-var Problem = require("./8puzzle");
+var Problem = require("./8puzzle"); 
 
 //Pn es la casilla dentro del tablero con su respectivo valor
 //si Pn=0 esa casilla es la vacia
@@ -16,4 +16,15 @@ var P9=7;
 
 var problem = new Problem({piece1:P1,piece2:P2,piece3:P3,piece4:P4,piece5:P5,piece6:P6,piece7:P7,piece8:P8,piece9:P9});
 
-//estrategias para resolver
+//estrategia de solucion
+var Search = require("./search"); //busqueda de la solucion (problema, estrategia)
+
+//aplicando las estrategias de solucion
+var Strategy1 = require("./breath"); 
+var Strategy2 = require("./depth"); 
+
+//implementacion de las estrategias
+//cambiar strategy por la que se desea usar
+var search = new Search(problem,strategy1);
+
+search.run();
