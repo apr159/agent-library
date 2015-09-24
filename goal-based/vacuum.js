@@ -1,11 +1,31 @@
 
+/**
+En inicial se recibe una lista de estados que modelan el
+estado inicial del ambiente.
+**/
 var Vacuum = function(initial){
 	this.initial = initial;
 }
 
+//se define el estado objetivo
 Vacuum.prototype.isGoal = function(current){
 	return current.room1 == 'Clean' && current.room2 == 'Clean'
 }
+
+/**
+La funcion successors guarda en un arreglo llamado tambien
+succesor, todos los posibles hijos que se pusieran desprender
+de un nodo padre, segun un algoritmo de busqueda.
+
+Recibe como argumento un conjunto de estados que modelan el
+estado actual del ambiente. En base a eso se hace una busqueda
+procedural de los posibles cambios que pudiran haber en el ambiente
+segun una accion a ejecutar.
+
+Al elegir las opciones posibles se genera un objeto "succesor" que
+se guarda en el arreglo "successors" previamente declarado y se
+retorna como resultado.
+**/
 
 Vacuum.prototype.successors = function(current){
 	var successors = [];

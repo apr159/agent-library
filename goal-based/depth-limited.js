@@ -4,7 +4,7 @@ var DLS = function(limit){
 }
 
 DLS.prototype.add = function(queue,node){
-	if (node.depth <= limit)
+	if (node.depth <= this.limit)
 		queue.unshift(node);
 }
 
