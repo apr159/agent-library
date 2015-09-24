@@ -61,6 +61,19 @@ Search.prototype.run = function(){
 	}
 	//se agrega nodo inicial a arreglo "this.queue" segun el método en "Estrategia"
 	this.strategy.add(this.queue, initialNode); 
+	var rStateInitial = initialNode.state;
+	console.log("\ninitial state= ", rStateInitial);
+
+	//dummy node usado para comparar como primer elemento en arreglo repeated[]
+	var dummyNode = {
+		state: {},
+		action: '',
+		cost: 0,
+		parent: undefined,
+		depth: 0
+
+	}
+	this.strategy.add(this.repeated, dummyNode)
 
 	/**
 	El proceso de búsqueda inicia haciendo "shift" (sacando
@@ -96,16 +109,47 @@ Search.prototype.run = function(){
 			console.log(this.printPath(node))
 			return "Success";
 		}else{
+			
+			var nodeState = node.state;
 			var succesors = this.problem.successors(node.state);
-			for (var i=0;i<succesors.length;i++){
-				this.strategy.add(this.queue,getNode(succesors[i],node));
 
+			console.log("para ", nodeState);
+			/**
+				for que compara nodo actual con node visitados anteriormente,
+				si se encuentra que el estado del nodo actual es igual al de
+				un nodo visitado previamente se marca la variable booleana
+				repeatedBool como verdadera.
+			**/
+			for (var j=0; j<this.repeated.length; j++){
+				var repeatedState = this.repeated[j].state;
+				console.log("comparar con ", repeatedState);
+
+				if(JSON.stringify(nodeState) === JSON.stringify(repeatedState)){ 
+					console.log("Estado repetido = ", repeatedState ); 
+					var repeatedBool = true;
+				}				
 			}
+			
+			console.log();
+			/**
+				si la variable repeatedBool es verdadera expanden los sucesores del
+				nodo actual y se agrega a la lista de nodos visitados, de lo contrario
+				no se hace hace nada con el nodo; es decir, se ignora.
 
-
+			**/
+			if(!repeatedBool){
+				for (var i=0; i<succesors.length; i++){
+					this.strategy.add(this.queue, getNode(succesors[i], node));
+				}
+				this.strategy.add(this.repeated, node);
+				repeatedBool = false;
+			}
+			else{
+				repeatedBool = false;
+			}
+			
 		}
 	}
-
 };
 
 module.exports = Search;
