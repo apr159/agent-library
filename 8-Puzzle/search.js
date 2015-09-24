@@ -30,7 +30,7 @@ Search.prototype.run = function(){
 	};
 
 	var nodes = [];
-	var mayor = 0, it = 0;
+	var mayor = 10, it = 0;
 
 	var initialNode = {
 		state: this.problem.initial,
@@ -66,6 +66,8 @@ Search.prototype.run = function(){
 			this.strategy.add(this.queue,nodes[it]);
 			node = nodes[it];
 			it=0;
+			mayor = 10;
+			nodes = [];
 
 
 		}

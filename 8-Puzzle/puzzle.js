@@ -71,85 +71,101 @@ Puzzle.prototype.isGoal = function(current) {
 Puzzle.prototype.successors = function(current) {
 	//Lista de los posibles movimientos
 	var successors = [];
+	var matrix = [[0,0,0],[0,0,0],[0,0,0]];
+	var space = [];
+	for (i=0;i<3;i++){
+		for (j=0;j<3;j++){
+			matrix[i][j] = current.scenary[i][j];
+		}
+	}
+
+	for (var i=0;i<2;i++){
+		space[i] = current.blank[i];
+	}
+
+	var obj = {scenary: matrix, blank:space};
+	console.log("obj");
+	console.log(obj);
 	console.log("Current: ");
 	console.log(current);
 
 	//Mover hacia arriba
-	if(current.blank[1] != 0){
-		temp = current.scenary[current.blank[0]][current.blank[1]-1];
-		current.scenary[current.blank[0]][current.blank[1]-1] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0],current.blank[1]-1];
+	if(obj.blank[1] != 0){
+		temp = obj.scenary[obj.blank[0]][obj.blank[1]-1];
+		obj.scenary[obj.blank[0]][obj.blank[1]-1] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0],obj.blank[1]-1];
 		console.log("********************************Arriba****************************************");
-		console.log(current);
+		console.log(obj);
+		
 		var successor = {
-			state: current,
+			state: JSON.parse(JSON.stringify(obj)),
 			action: "Arriba",
-			cost: comparar(current.scenary,[[1,4,7],[2,5,8],[3,6,0]])
+			cost: comparar(obj.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
 		console.log("********************************Arriba2****************************************");
 		console.log(successor.state);
 		successors.push(successor);
-		temp = current.scenary[current.blank[0]][current.blank[1]+1];
-		current.scenary[current.blank[0]][current.blank[1]+1] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0],current.blank[1]+1];
+		temp = obj.scenary[obj.blank[0]][obj.blank[1]+1];
+		obj.scenary[obj.blank[0]][obj.blank[1]+1] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0],obj.blank[1]+1];
 		console.log("********************************Arriba3****************************************");
 		console.log(successor.state);
 	}
 
 	//Mover hacia abajo
-	if(current.blank[1] != 2){
-		temp = current.scenary[current.blank[0]][current.blank[1]+1];
-		current.scenary[current.blank[0]][current.blank[1]+1] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0],current.blank[1]+1];
+	if(obj.blank[1] != 2){
+		temp = obj.scenary[obj.blank[0]][obj.blank[1]+1];
+		obj.scenary[obj.blank[0]][obj.blank[1]+1] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0],obj.blank[1]+1];
 		var successor = {
-			state: current,
+			state: JSON.parse(JSON.stringify(obj)),
 			action: "Abajo",
-			cost: comparar(current.scenary,[[1,4,7],[2,5,8],[3,6,0]])
+			cost: comparar(obj.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
 		successors.push(successor);
-		temp = current.scenary[current.blank[0]][current.blank[1]-1];
-		current.scenary[current.blank[0]][current.blank[1]-1] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0],current.blank[1]-1];
+		temp = obj.scenary[obj.blank[0]][obj.blank[1]-1];
+		obj.scenary[obj.blank[0]][obj.blank[1]-1] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0],obj.blank[1]-1];
 	}
 
 	//Mover hacia la izquierda
-	if(current.blank[0] != 0){
-		temp = current.scenary[current.blank[0]-1][current.blank[1]];
-		current.scenary[current.blank[0]-1][current.blank[1]] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0]-1,current.blank[1]];
+	if(obj.blank[0] != 0){
+		temp = obj.scenary[obj.blank[0]-1][obj.blank[1]];
+		obj.scenary[obj.blank[0]-1][obj.blank[1]] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0]-1,obj.blank[1]];
 		var successor = {
-			state: current,
+			state: JSON.parse(JSON.stringify(obj)),
 			action: "Izquierda",
-			cost: comparar(current.scenary,[[1,4,7],[2,5,8],[3,6,0]])
+			cost: comparar(obj.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
 		successors.push(successor);
-		temp = current.scenary[current.blank[0]+1][current.blank[1]];
-		current.scenary[current.blank[0]+1][current.blank[1]] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0]+1,current.blank[1]];
+		temp = obj.scenary[obj.blank[0]+1][obj.blank[1]];
+		obj.scenary[obj.blank[0]+1][obj.blank[1]] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0]+1,obj.blank[1]];
 	}
 
 	//Mover hacia la derecha
-	if(current.blank[0] != 2){
-		temp = current.scenary[current.blank[0]+1][current.blank[1]];
-		current.scenary[current.blank[0]+1][current.blank[1]] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0]+1,current.blank[1]];
+	if(obj.blank[0] != 2){
+		temp = obj.scenary[obj.blank[0]+1][obj.blank[1]];
+		obj.scenary[obj.blank[0]+1][obj.blank[1]] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0]+1,obj.blank[1]];
 		var successor = {
-			state: current,
+			state: JSON.parse(JSON.stringify(obj)),
 			action: "Derecha",
-			cost: comparar(current.scenary,[[1,4,7],[2,5,8],[3,6,0]])
+			cost: comparar(obj.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
 		successors.push(successor);
-		temp = current.scenary[current.blank[0]-1][current.blank[1]];
-		current.scenary[current.blank[0]-1][current.blank[1]] = current.scenary[current.blank[0]][current.blank[1]];
-		current.scenary[current.blank[0]][current.blank[1]] = temp
-		current.blank = [current.blank[0]-1,current.blank[1]];
+		temp = obj.scenary[obj.blank[0]-1][obj.blank[1]];
+		obj.scenary[obj.blank[0]-1][obj.blank[1]] = obj.scenary[obj.blank[0]][obj.blank[1]];
+		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
+		obj.blank = [obj.blank[0]-1,obj.blank[1]];
 	}	
 	console.log("\nSuccessors: ");
 	for(var i=0, l=successors.length;i<l;i++){
