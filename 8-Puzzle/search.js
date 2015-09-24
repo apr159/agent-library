@@ -43,11 +43,9 @@ Search.prototype.run = function(){
 
 	while (this.queue.length>0){
 		//console.log("Entre");
-		var node = this.queue.shift();
+		var node = this.queue.pop();
 		console.log("Aqui: ")
 		console.log(node.state);
-		console.log("isgoal");
-		console.log(this.problem.isGoal(node.state.scenary));
 		if (this.problem.isGoal(node.state.scenary)){
 			console.log(this.printPath(node))
 			return "Success";
@@ -66,11 +64,12 @@ Search.prototype.run = function(){
 				}
 			}
 			this.strategy.add(this.queue,nodes[it]);
+			node = nodes[it];
 			it=0;
 
 
 		}
-		console.log(this.printPath(node));
+		console.log(this.queue);
 		console.log("**************************************************************************************************************")
 	}
 
