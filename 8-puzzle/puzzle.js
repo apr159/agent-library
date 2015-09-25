@@ -64,8 +64,8 @@ puzzle.prototype.successors = function(current, valor){
 // Determinar los estados a los que se puede llegar apartir del estado current
 		//Determinamos la casilla vacia
 		var sucesrs =[];
-		console.log( "current");
-		console.log( current);
+		// console.log( "current");
+		// console.log( current);
 
 		for (var i = 0; i < 3; i++) {
 			for (var j = 0; j < 3; j++) {
@@ -96,8 +96,8 @@ puzzle.prototype.successors = function(current, valor){
 												// console.log("suc: " + succesor.matriz + "+" + succesor);
 
 				sucesrs.push(succesor);
-								console.log( "NUEVO");
-				console.log( sucesrs[sucesrs.length-1]);
+				// 				console.log( "NUEVO");
+				// console.log( sucesrs[sucesrs.length-1]);
 			}
 			//casilla abajo de la vacia
 			var nueva_x = vacia_x + 1;
@@ -116,8 +116,8 @@ puzzle.prototype.successors = function(current, valor){
 				succesor.depth = valor+1
 
 				sucesrs.push(succesor);
-								console.log( "NUEVO");
-				console.log( sucesrs[sucesrs.length-1]);
+				// 				console.log( "NUEVO");
+				// console.log( sucesrs[sucesrs.length-1]);
 			}
 			//casilla izquierda de la vacia
 
@@ -135,8 +135,8 @@ puzzle.prototype.successors = function(current, valor){
 				succesor.depth = valor+1
 
 				sucesrs.push(succesor);
-								console.log( "NUEVO");
-				console.log( sucesrs[sucesrs.length-1]);
+				// 				console.log( "NUEVO");
+				// console.log( sucesrs[sucesrs.length-1]);
 			}
 
 			//casilla derecha de la vacia
@@ -156,8 +156,8 @@ puzzle.prototype.successors = function(current, valor){
 				succesor.depth = valor+1
 
 				sucesrs.push(succesor);
-				console.log( "NUEVO");
-				console.log( sucesrs[sucesrs.length-1]);
+				// console.log( "NUEVO");
+				// console.log( sucesrs[sucesrs.length-1]);
 			}
 
 

@@ -35,7 +35,6 @@ Search.prototype.printPath = function(node){
 };
 
 Search.prototype.run = function(){
-					console.log("patron.length");
 
 	var getNode = function(succesor,parent){
 		return {
@@ -45,7 +44,6 @@ Search.prototype.run = function(){
 			parent: parent,
 			depth: parent.depth+1
 		}
-			debugger;
 	};
 
 	var initialNode = {
@@ -56,8 +54,6 @@ Search.prototype.run = function(){
 		depth: 0
 	}
 	this.strategy.add(this.queue, initialNode);
-	console.log("this.queue");
-	console.log(this.queue[0].state.matriz);
 
 
 	 // while (true){
@@ -65,58 +61,60 @@ Search.prototype.run = function(){
 //asegurarse que el primero sea el mas chico;
 		var node = this.queue.shift();
 		this.strategy.add(this.repeated,node);
-		console.log("NOde awebo:");
-		console.log(node.state.matriz);
+		//console.log("NOde awebo:");
+		//console.log(node.state.matriz);
 
-		// console.log("Goal?: ",this.problem.isGoal(node.state));
+		//// console.log("Goal?: ",this.problem.isGoal(node.state));
 
 		if (this.problem.isGoal(node.state)){
 			var patron = this.printPath(node);
 
 			for (var i = 0; i < patron.length; i++) {
-				console.log(patron[i].matriz);
-				console.log("patron.length");
-				console.log(patron.length);
+				//console.log(patron[i].matriz);
+				//console.log("patron.length ",patron.length);
 			};
 			return "Success";
 		}else{
+			console.log("node");
+			console.log(node);
+			console.log(node.state);
 			var succesors = this.problem.successors(node.state,node.depth);
 			for (var i=0;i<succesors.length;i++){
 				//por cada nodo buscar si succesors[i] esta en this.queue o this.repeated
 				var estaQueue = false;
 				var estaRepeated = false;
 				var indiceQueue;
-				// console.log("compara: ");
-				// console.log(succesors[i]);
+				//// console.log("compara: ");
+				//// console.log(succesors[i]);
 				var indiceAbierto;
 				var indiceCerrado;
 				for(var j = 0; j< this.queue.length; j++){
-				console.log("compara: ");
-				console.log(succesors[i]);
-				console.log(this.queue[j]);
+				//console.log("compara: ");
+				//console.log(succesors[i].state.matriz);
+				//console.log(this.queue[j].state.matriz);
 
 					if(compara(this.queue[j].state,succesors[i].state)){
 
-				console.log("compara resultado :");
-				console.log(compara(this.queue[j].state,succesors[i].state));
+				//console.log("compara resultado :");
+				//console.log(compara(this.queue[j].state,succesors[i].state));
 						estaQueue = true;
 						indiceAbierto = j;
 					}
 				}
 				for(var k = 0; k< this.repeated.length; k++){
-				console.log("compara: ");
-				console.log(succesors[i]);
-				console.log(this.repeated[k]);
+				//console.log("compara: ");
+				//console.log(succesors[i]);
+				//console.log(this.repeated[k]);
 
 					if(compara(this.repeated[k].state,succesors[i].state)){
 
-				console.log("compara resultado :");
-				console.log(compara(this.repeated[k].state,succesors[i].state));
+				//console.log("compara resultado :");
+				//console.log(compara(this.repeated[k].state,succesors[i].state));
 						estaQueue = true;
 						var indiceCerrado = k;
 					}
 				}
-				console.log(estaQueue,estaRepeated);
+				//console.log(estaQueue,estaRepeated);
 
 				if (estaRepeated==false) {
 					// if (node.g < succesors[i].g || estaQueue==false) {
@@ -129,26 +127,25 @@ Search.prototype.run = function(){
 						}else{
 					//Determinar posicion de succesors[i] y guardarlo en this.queue de menor a mayor f
 						 var numeros = [];
-						for (var i =0; i < this.queue.length; i++) {
-							numeros.push(this.queue[i].f);
-							console.log(numeros, this.queue[i].f);
+						for (var m =0; m < this.queue.length; m++) {
+							numeros.push(this.queue[m].cost);
+							//console.log("numeros This queue", this.queue[m].cost);
 						};
-						numeros.push(node.f);
-						console.log(numeros);
+						//console.log("Numero: ",numeros);
 
 						var ordenados = (JSON.parse(JSON.stringify(numeros))); 
 						ordenados.sort((function(a, b){return a-b}));
 
-						// console.log(nodo[0]);
-						console.log(ordenados);
-						console.log(numeros);
-						var nuevoIndex = ordenados.indexOf(node.f);
-						console.log(ordenados.indexOf(node.f));
-						console.log(numeros[0]);
+						////console.log(nodo[0]);
+						//// console.log(ordenados);
+						//// console.log(numeros);
+						var nuevoIndex = ordenados.indexOf(node.cost);
+						//console.log("asdas",ordenados.indexOf(node.cost));
+						//console.log("length ordenados",ordenados.length);
+						//console.log("ordenados",ordenados);
+						//console.log(numeros[0]);
 							this.strategy.add(this.queue,getNode(succesors[i],node),nuevoIndex);
 						}
-
-
 					};
 				};
 
@@ -157,21 +154,21 @@ Search.prototype.run = function(){
 				// 	//Determinar posicion de succesors[i] y guardarlo en this.queue de menor a mayor f
 				// 		 var numeros = [];
 				// 		for (var i =0; i < this.queue.length; i++) {
-				// 			numeros.push(this.queue[i].f);
-				// 			console.log(numeros, this.queue[i].f);
+				// 			numeros.push(this.queue[i].cost);
+				//// 			console.log(numeros, this.queue[i].f);
 				// 		};
 				// 		numeros.push(node.f);
-				// 		console.log(numeros);
+				//// 		console.log(numeros);
 
 				// 		var ordenados = (JSON.parse(JSON.stringify(numeros))); 
 				// 		ordenados.sort((function(a, b){return a-b}));
 
-				// 		// console.log(nodo[0]);
-				// 		console.log(ordenados);
-				// 		console.log(numeros);
+				//// 		// console.log(nodo[0]);
+				//// 		console.log(ordenados);
+				//// 		console.log(numeros);
 				// 		var nuevoIndex = ordenados.indexOf(node.f);
-				// 		console.log(ordenados.indexOf(node.f));
-				// 		console.log(numeros[0]);
+				//// 		console.log(ordenados.indexOf(node.f));
+				//// 		console.log(numeros[0]);
 
 				// 		this.strategy.add(this.queue,getNode(succesors[i],node),nuevoIndex);
 				// 	}
