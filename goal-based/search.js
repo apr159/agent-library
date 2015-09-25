@@ -18,7 +18,6 @@ Search.prototype.printPath = function(node){
 };
 
 Search.prototype.run = function(){
-	
 	var getNode = function(succesor,parent){
 		return {
 			state: succesor.state,	
@@ -28,7 +27,6 @@ Search.prototype.run = function(){
 			depth: parent.depth+1
 		}
 	};
-
 	var initialNode = {
 		state: this.problem.initial,
 		action: '',
@@ -49,7 +47,6 @@ Search.prototype.run = function(){
 			var succesors = this.problem.successors(node.state);
 			for (var i=0;i<succesors.length;i++){
 				this.strategy.add(this.queue,getNode(succesors[i],node));
-
 			}
 
 
