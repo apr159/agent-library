@@ -45,6 +45,7 @@ Search.prototype.run = function(){
 			parent: parent,
 			depth: parent.depth+1
 		}
+			debugger;
 	};
 
 	var initialNode = {
@@ -63,6 +64,7 @@ Search.prototype.run = function(){
 	 while (this.queue.length>0){
 //asegurarse que el primero sea el mas chico;
 		var node = this.queue.shift();
+		this.strategy.add(this.repeated,node);
 		console.log("NOde awebo:");
 		console.log(node.state.matriz);
 
@@ -86,21 +88,45 @@ Search.prototype.run = function(){
 				var indiceQueue;
 				// console.log("compara: ");
 				// console.log(succesors[i]);
-
+				var indiceAbierto;
+				var indiceCerrado;
 				for(var j = 0; j< this.queue.length; j++){
 				console.log("compara: ");
 				console.log(succesors[i]);
 				console.log(this.queue[j]);
 
-					if(compara(this.queue[j].state,succesors[i])){
+					if(compara(this.queue[j].state,succesors[i].state)){
 
 				console.log("compara resultado :");
-				console.log(compara(this.queue[j].state,succesors[i]));
+				console.log(compara(this.queue[j].state,succesors[i].state));
 						estaQueue = true;
-						var indiceAbierto = j;
+						indiceAbierto = j;
 					}
-				//Ya se si esta en abierto
-					if(estaQueue == false){
+				}
+				for(var k = 0; k< this.repeated.length; k++){
+				console.log("compara: ");
+				console.log(succesors[i]);
+				console.log(this.repeated[k]);
+
+					if(compara(this.repeated[k].state,succesors[i].state)){
+
+				console.log("compara resultado :");
+				console.log(compara(this.repeated[k].state,succesors[i].state));
+						estaQueue = true;
+						var indiceCerrado = k;
+					}
+				}
+				console.log(estaQueue,estaRepeated);
+
+				if (estaRepeated==false) {
+					// if (node.g < succesors[i].g || estaQueue==false) {
+					if (estaQueue==false) {
+
+						if (estaQueue) {
+							// this.queue[indiceAbierto].parent = node.parent;
+							// this.queue[indiceAbierto].depth = node.depth;
+							// this.queue[indiceAbierto].f = node.f;
+						}else{
 					//Determinar posicion de succesors[i] y guardarlo en this.queue de menor a mayor f
 						 var numeros = [];
 						for (var i =0; i < this.queue.length; i++) {
@@ -119,13 +145,37 @@ Search.prototype.run = function(){
 						var nuevoIndex = ordenados.indexOf(node.f);
 						console.log(ordenados.indexOf(node.f));
 						console.log(numeros[0]);
-
-						this.strategy.add(this.queue,getNode(succesors[i],node),nuevoIndex);
-					}
-
+							this.strategy.add(this.queue,getNode(succesors[i],node),nuevoIndex);
+						}
 
 
-			}
+					};
+				};
+
+				// //Ya se si esta en abierto
+				// 	if(estaQueue == false){
+				// 	//Determinar posicion de succesors[i] y guardarlo en this.queue de menor a mayor f
+				// 		 var numeros = [];
+				// 		for (var i =0; i < this.queue.length; i++) {
+				// 			numeros.push(this.queue[i].f);
+				// 			console.log(numeros, this.queue[i].f);
+				// 		};
+				// 		numeros.push(node.f);
+				// 		console.log(numeros);
+
+				// 		var ordenados = (JSON.parse(JSON.stringify(numeros))); 
+				// 		ordenados.sort((function(a, b){return a-b}));
+
+				// 		// console.log(nodo[0]);
+				// 		console.log(ordenados);
+				// 		console.log(numeros);
+				// 		var nuevoIndex = ordenados.indexOf(node.f);
+				// 		console.log(ordenados.indexOf(node.f));
+				// 		console.log(numeros[0]);
+
+				// 		this.strategy.add(this.queue,getNode(succesors[i],node),nuevoIndex);
+				// 	}
+
 
 				// if(){
 				// //si no esta en this.queue
@@ -133,10 +183,6 @@ Search.prototype.run = function(){
 				// }
 
 			}
-
-				this.strategy.add(this.repeated,node);
-
-
 
 		}
 	}
