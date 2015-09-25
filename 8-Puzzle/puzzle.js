@@ -84,10 +84,10 @@ Puzzle.prototype.successors = function(current) {
 	}
 
 	var obj = {scenary: matrix, blank:space};
-	console.log("obj");
+	/*console.log("obj");
 	console.log(obj);
 	console.log("Current: ");
-	console.log(current);
+	console.log(current);*/
 
 	//Mover hacia arriba
 	if(obj.blank[1] != 0){
@@ -95,23 +95,23 @@ Puzzle.prototype.successors = function(current) {
 		obj.scenary[obj.blank[0]][obj.blank[1]-1] = obj.scenary[obj.blank[0]][obj.blank[1]];
 		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
 		obj.blank = [obj.blank[0],obj.blank[1]-1];
-		console.log("********************************Arriba****************************************");
-		console.log(obj);
+		/*console.log("********************************Arriba****************************************");
+		console.log(obj);*/
 		
 		var successor = {
 			state: JSON.parse(JSON.stringify(obj)),
 			action: "Arriba",
 			cost: comparar(obj.scenary,[[1,4,7],[2,5,8],[3,6,0]])
 		}
-		console.log("********************************Arriba2****************************************");
-		console.log(successor.state);
+		/*console.log("********************************Arriba2****************************************");
+		console.log(successor.state);*/
 		successors.push(successor);
 		temp = obj.scenary[obj.blank[0]][obj.blank[1]+1];
 		obj.scenary[obj.blank[0]][obj.blank[1]+1] = obj.scenary[obj.blank[0]][obj.blank[1]];
 		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
 		obj.blank = [obj.blank[0],obj.blank[1]+1];
-		console.log("********************************Arriba3****************************************");
-		console.log(successor.state);
+		/*console.log("********************************Arriba3****************************************");
+		console.log(successor.state);*/
 	}
 
 	//Mover hacia abajo
@@ -167,12 +167,12 @@ Puzzle.prototype.successors = function(current) {
 		obj.scenary[obj.blank[0]][obj.blank[1]] = temp
 		obj.blank = [obj.blank[0]-1,obj.blank[1]];
 	}	
-	console.log("\nSuccessors: ");
+	/*console.log("\nSuccessors: ");*/
 	for(var i=0, l=successors.length;i<l;i++){
-		console.log(successors[i]);
-		console.log(successors[i].state);
+		/*console.log(successors[i]);
+		console.log(successors[i].state);*/
 	}
-	console.log('******************************************************************');
+	/*console.log('******************************************************************');*/
 
 	return successors;
 }

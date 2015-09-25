@@ -40,12 +40,17 @@ Search.prototype.run = function(){
 		depth: 0
 	}
 	this.strategy.add(this.queue, initialNode);
+	
 
 	while (this.queue.length>0){
 		//console.log("Entre");
 		var node = this.queue.pop();
-		console.log("Aqui: ")
-		console.log(node.state);
+		for(var i=0;i<3;i++){
+			console.log("| " + node.state.scenary[0][i] + " | " + node.state.scenary[1][i] + " | " + node.state.scenary[2][i] + " |");
+		}
+		console.log("\n\n");
+		/*console.log("Aqui: ")
+		console.log(node.state);*/
 		if (this.problem.isGoal(node.state.scenary)){
 			console.log(this.printPath(node))
 			return "Success";
@@ -71,8 +76,8 @@ Search.prototype.run = function(){
 
 
 		}
-		console.log(this.queue);
-		console.log("**************************************************************************************************************")
+		/*console.log(this.queue);
+		console.log("**************************************************************************************************************")*/
 	}
 
 };
