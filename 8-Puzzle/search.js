@@ -30,7 +30,7 @@ Search.prototype.run = function(){
 	};
 
 	var nodes = [];
-	var mayor = 10, it = 0;
+	var menor = 10000, it = 0;
 
 	var initialNode = {
 		state: this.problem.initial,
@@ -59,19 +59,27 @@ Search.prototype.run = function(){
 			for (var i=0;i<succesors.length;i++){
 				//this.strategy.add(this.queue,getNode(succesors[i],node));
 				nodes.push(getNode(succesors[i],node));
-
+				/*console.log('****************************************');
+				console.log(nodes[i].action);
+				console.log(nodes[i].cost);
+				console.log('*****************************************');*/
 			}
 
+			menor = nodes[1].cost*1000;
 			for(var i=0, l = nodes.length;i<l;i++){
-				if(nodes[i].cost<mayor){
-					mayor = nodes[i].cost;
+				/*console.log('nodes: ' + nodes[i].cost);
+				console.log('menor: ' + menor);*/
+				if(nodes[i].cost<menor){
+					menor = nodes[i].cost;
 					it = i;
 				}
+				//console.log('itfor: ' + it);
 			}
+			//console.log('it: ' + it);
 			this.strategy.add(this.queue,nodes[it]);
 			node = nodes[it];
 			it=0;
-			mayor = 10;
+			//menor = 10000000;
 			nodes = [];
 
 

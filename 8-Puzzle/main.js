@@ -5,11 +5,12 @@ var Strategy = require("./breath");
 
 
 var strategy = new Strategy();
-var problem = new Puzzle({scenary:[[1,4,7],[0,2,5],[3,6,8]],blank:[1,0]});
+//No olvidar cmabiar la posición del 0 en blank cuando se cambie el escenario
+var problem = new Puzzle({scenary:[[4,7,0],[1,2,8],[3,5,6]],blank:[0,2]});
 /*
-|1   3|
-|4 2 6|
-|7 5 8|
+|4 1 3|
+|7 2 5|
+|0 8 6|
 */
 
 
