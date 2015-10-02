@@ -7,4 +7,4 @@ BFS.prototype.add = function(queue,node){
 	queue.push(node);
 }
 
-module.exports = BFS;
+module.exports = BFS; 
