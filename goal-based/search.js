@@ -17,12 +17,12 @@ Search.prototype.printPath = function(node){
 	return path;
 };
 Search.prototype.getRepeated = function(node){
-	for(var i=0;i<this.repeated.length;i++){
+    for(var i=0;i<this.repeated.length;i++){
 		if(node.state == this.repeated[i].state)
 			return true;
 	}
 	return false;
-}//crear aqui algo para determinar si se repite el estado
+};//crear aqui algo para determinar si se repite el estado
 
 Search.prototype.run = function(){
 	
@@ -46,7 +46,15 @@ Search.prototype.run = function(){
 		depth: 0
 	}
 	this.strategy.add(this.queue, initialNode);//al inicio
-
+	var tempNode = { //para empezar a llenar los repetidos
+		state: { },
+		action: '',
+		cost: 0,
+		heuristic: 0,//no sure
+		parent: undefined,
+		depth: 0
+	}
+    this.strategy.add(this.repeated, tempNode);
 	while (this.queue.length>0){
 		var node = this.queue.shift();
 		
@@ -56,11 +64,12 @@ Search.prototype.run = function(){
 			return "Success";
 		}else{
 			var succesors = this.problem.successors(node.state);//successor del prob
-			for (var i=0;i<succesors.length;i++){
-				this.strategy.add(this.queue,getNode(succesors[i],node));
-
+			if (!Search.prototype.getRepeated(node)){//sino se repite
+				for (var i=0;i<succesors.length;i++){
+					this.strategy.add(this.queue,getNode(succesors[i],node));
+				}
+				this.strategy.add(this.repeated, node);
 			}
-
 
 		}
 	}
