@@ -16,7 +16,14 @@ Search.prototype.printPath = function(node){
 	}
 	return path;
 };
-Search.prototype.getRepeated//crear aqui algo para determinar si se repite el estado
+Search.prototype.getRepeated = function(node){
+	for(var i=0;i<this.repeated.length;i++){
+		if(node.state == this.repeated[i].state)
+			return true;
+	}
+	return false;
+}//crear aqui algo para determinar si se repite el estado
+
 Search.prototype.run = function(){
 	
 	var getNode = function(succesor,parent){//crear nodo
