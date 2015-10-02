@@ -4,7 +4,7 @@ var Vacuum = function(initial){
 }
 
 Vacuum.prototype.isGoal = function(current){
-	return current.room1 == 'Clean' && current.room2 == 'Clean'
+	return current.room1 == 	'Clean' && current.room2 == 'Clean'
 }
 
 Vacuum.prototype.successors = function(current){

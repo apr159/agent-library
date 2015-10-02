@@ -3,7 +3,7 @@ var Search = function(problem, strategy){
 	this.problem = problem;
 	this.strategy = strategy;
 	this.queue = [];
-	this.repeated = [];
+	this.repeated = [];//usarlo
 };
 
 
@@ -11,19 +11,20 @@ Search.prototype.printPath = function(node){
 	var path = [];
 	var n = node;
 	while (n!=undefined){
-		path.unshift({action:n.action,state:n.state});
+		path.unshift({action:n.action,state:n.state});//meterlo enf
 		n = n.parent;
 	}
 	return path;
 };
-
+Search.prototype.getRepeated//crear aqui algo para determinar si se repite el estado
 Search.prototype.run = function(){
 	
-	var getNode = function(succesor,parent){
+	var getNode = function(succesor,parent){//crear nodo
 		return {
 			state: succesor.state,	
 			action: succesor.action,
 			cost: parent.cost + succesor.cost,
+			heuristic: parent.heuristic + succesor.heuristic,
 			parent: parent,
 			depth: parent.depth+1
 		}
@@ -33,10 +34,11 @@ Search.prototype.run = function(){
 		state: this.problem.initial,
 		action: '',
 		cost: 0,
+		heuristic: 0,//no sure
 		parent: undefined,
 		depth: 0
 	}
-	this.strategy.add(this.queue, initialNode);
+	this.strategy.add(this.queue, initialNode);//al inicio
 
 	while (this.queue.length>0){
 		var node = this.queue.shift();
@@ -46,7 +48,7 @@ Search.prototype.run = function(){
 			console.log(this.printPath(node))
 			return "Success";
 		}else{
-			var succesors = this.problem.successors(node.state);
+			var succesors = this.problem.successors(node.state);//successor del prob
 			for (var i=0;i<succesors.length;i++){
 				this.strategy.add(this.queue,getNode(succesors[i],node));
 
