@@ -1,0 +1,21 @@
+var aasterisco = function(){//Declaración de la función para el algoritmo de A*
+}
+aasterisco.prototype.add = function(queue,node){
+	queue.push(node);//
+	var sitio;
+	var min;
+	var node_aux;
+	for(var q=0; q<queue.length-1; q++){
+		min=queue[q].h+queue[q].cost;
+		sitio=q;
+		for(var p=q; p<queue.length; p++){
+			if((queue[p].cost+queue[p].h)<min){
+				min=queue[p].cost+queue[p].h;
+				sitio=p;
+			}
+		}
+		node_aux=queue[sitio];
+		queue[sitio]=queue[q];
+		queue[q]=node_aux;
+	}
+}
