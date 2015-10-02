@@ -1,6 +1,6 @@
 var Search = require("./search");
 var Problem = require("./8puzzle");
-var Strategy = require("./breath");
+var Strategy = require("./astar");
 //var Strategy = require("./depth-limited");
 
 var strategy = new Strategy();
