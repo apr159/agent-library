@@ -4,7 +4,7 @@ var Strategy = require("./breath");
 
 
 var strategy = new Strategy();
-var problem = new Problem({Cuadro11:2,Cuadro12:5,Cuadro13:3,Cuadro21:1,Cuadro22:0,Cuadro23:6,Cuadro31:4,Cuadro32:7,cuadro33:8});
+var problem = new Problem({cuadro:[[2,5,3],[1,0,6],[4,7,8]]});
 
 var search = new Search(problem,strategy);
 

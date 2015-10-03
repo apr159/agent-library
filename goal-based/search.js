@@ -44,12 +44,18 @@ Search.prototype.run = function(){
 			console.log(this.printPath(node))
 			return "Success";
 		}else{
+			var costoMenor=999999;
+			var cont=0;
 			var succesors = this.problem.successors(node.state);
 			for (var i=0;i<succesors.length;i++){
-				this.strategy.add(this.queue,getNode(succesors[i],node));
+				if(succesors.cost<=costoMenor){
+					costoMenor=succesors.cost;
+					cont=i;
+				}
+				//this.strategy.add(this.queue,getNode(succesors[i],node));
 			}
 
-
+			this.strategy.add(this.queue,getNode(succesors[cont],node));
 		}
 	}
 
