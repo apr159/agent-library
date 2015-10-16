@@ -1,6 +1,11 @@
 var Search = require("./search");
+<<<<<<< HEAD
+var Vacuum = require("./vacuum");
+var Strategy = require("./ucs");
+=======
 var Problem = require("./water-jug");
 var Strategy = require("./breath");
+>>>>>>> master
 
 
 var strategy = new Strategy();
