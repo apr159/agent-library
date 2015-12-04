@@ -1,24 +1,26 @@
-var astar = function(){
+var Astar = function(){
 }
 
-astar.prototype.add = function(queue, node){
+Astar.prototype.add = function(queue, node){
 	queue.push(node);
-	//ordena la cola de menor a mayor
-	queue.sort(function(a,b){
-		if(a.cost < b.cost){
-			return -1;
-		}
-		if(a.cost > b.cost){
-			return 1;
-		}
-		return 0;
-	});
+	//sorts the queue from least to greatest acording to f function
+	if(queue.length > 1){
+		queue.sort(function(a,b){
+			if(a.f < b.f){
+				return -1;
+			}
+			if(a.f > b.f){
+				return 1;
+			}
+			return 0;
+		});
+	}
 }
 
-astar.prototype.visited = function(queue, node){ //compara si algún nodo ya ha sido visitado
-	if(queue.length!=0){
-		for(var i=0;i<queue.length;i++){
-			if(queue[i]==node){
+Astar.prototype.visited = function(queue, position){ //compares with visited nodes
+	if(queue.length > 0){
+		for(var n=0; n<queue.length; n++){
+			if(queue[n].i == position.i && queue[n].j == position.j){
 				return 1;
 			}
 		}
@@ -26,4 +28,4 @@ astar.prototype.visited = function(queue, node){ //compara si algún nodo ya ha 
 	return 0;
 }
 
-module.exports = astar;
+module.exports = Astar;

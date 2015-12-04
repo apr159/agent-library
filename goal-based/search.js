@@ -1,17 +1,20 @@
-
-var Search = function(problem, strategy){
+var Search = function(problem, strategy, boxes, end_point){
 	this.problem = problem;
+	this.boxes = boxes;
+	this.end_point = end_point;
 	this.strategy = strategy;
 	this.queue = [];
-	this.visited = [];
+	this.repeated = [];
 };
-
 
 Search.prototype.printPath = function(node){
 	var path = [];
 	var n = node;
-	while (n!=undefined){
-		path.unshift({action:n.action,state:n.state});
+
+	while(n!=undefined){
+		path.unshift({
+			action: n.action
+		});
 		n = n.parent;
 	}
 	return path;
@@ -19,57 +22,52 @@ Search.prototype.printPath = function(node){
 
 Search.prototype.run = function(){
 	
-	var getNode = function(successor,parent){
-		return {
-			state: successor.state,	
-			action: successor.action,
-			cost: parent.cost + successor.cost,
-			parent: parent,
-			depth: parent.depth+1
+	var getNode = function(succesor, parent){
+		return{
+			start_position: succesor.start_position,
+			position: succesor.position,
+			action: succesor.action,
+			g: parent.g + succesor.g,
+			h: succesor.h,
+			f: parent.g + succesor.g + succesor.h,
+			parent: parent
 		}
 	};
 
-	var initialNode={
-		state: this.problem.initial,
-		action: '',
-		cost: 0,
-		parent: undefined,
-		depth: 0
-	}
-	this.strategy.add(this.queue,initialNode);
-	var g = 0; //nivel en que se encuentran los nodos hijos
-
-	while (this.queue.length>0){
-		var node = this.queue.shift();
-		//console.log('length:',this.queue.length);
-		//this.queue.length = 0;
-		//console.log('--------------------');
-		//console.log(node);
-		//console.log('--------------------');
-		var visited = this.strategy.visited(this.visited,node);
-
-		if(visited==0){
-		if (this.problem.isGoal(node.state)){
-			console.log(this.printPath(node))
-			return "Success";
-		}else{
-			var successors = this.problem.successors(node.state);
-			g++;
-			for (var i=0;i<successors.length;i++){
-				//console.log(this.printPath(successors[i]));
-				var h = this.problem.h(successors[i].state);
-				//successors[i].cost = g + this.problem.h(successors[i].state);
-				//console.log('h:',h);
-				successors[i].cost = g + h;
-				//console.log('cost:',successors[i].cost);
-				//console.log('pause');
-				// console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
-				// console.log(getNode(successors[i],node));
-				// console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
-				this.strategy.add(this.queue,getNode(successors[i],node));
-			}
+	for(var n=0; n<this.boxes.length; n++){
+		var initialNode = {
+			start_position:{
+				a: this.boxes[n][0],
+				b: this.boxes[n][1]
+			},
+			position:{
+				i: this.boxes[n][0],
+				j: this.boxes[n][1]
+			},
+			action:'Start',
+			g: 0,
+			h: 0,
+			f: 0,
+			parent: undefined
 		}
-		this.visited.push(node);
+		this.strategy.add(this.queue, initialNode);
+	}
+
+	while (this.queue.length > 0){
+		var node = this.queue.shift();
+		
+		if(!this.strategy.visited(this.repeated, node.position)){
+			if(this.problem.isGoal(node.position, this.end_point)){
+				console.log(this.printPath(node));
+				return node.start_position;
+				//return "Success";
+			}else{
+				var succesors = this.problem.successors(node.start_position, node.position, this.end_point, this.problem.initial);
+				for(var i=0; i<succesors.length; i++){
+					this.strategy.add(this.queue, getNode(succesors[i], node));
+				}
+				this.strategy.add(this.repeated, node.position);
+			}
 		}
 	}
 };
