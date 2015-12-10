@@ -3,8 +3,8 @@ var Search = function(problem, strategy, boxes, end_point){
 	this.boxes = boxes;
 	this.end_point = end_point;
 	this.strategy = strategy;
-	this.queue = [];
-	this.repeated = [];
+	this.queue = []; //Cola vacia
+	this.repeated = []; //Cola vacia de repetidos
 };
 
 Search.prototype.printPath = function(node){
@@ -22,9 +22,9 @@ Search.prototype.printPath = function(node){
 
 Search.prototype.run = function(){
 	
-	var getNode = function(succesor, parent){
+	var getNode = function(start, succesor, parent){
 		return{
-			start_position: succesor.start_position,
+			start_position: start,
 			position: succesor.position,
 			action: succesor.action,
 			g: parent.g + succesor.g,
@@ -54,7 +54,7 @@ Search.prototype.run = function(){
 	}
 
 	while (this.queue.length > 0){
-		var node = this.queue.shift();
+		var node = this.queue.shift(); //Shift: devuelve el primer elemento de la cola y lo elimina.
 		
 		if(!this.strategy.visited(this.repeated, node.position)){
 			if(this.problem.isGoal(node.position, this.end_point)){
@@ -62,9 +62,9 @@ Search.prototype.run = function(){
 				return node.start_position;
 				//return "Success";
 			}else{
-				var succesors = this.problem.successors(node.start_position, node.position, this.end_point, this.problem.initial);
+				var succesors = this.problem.successors(node.position, this.end_point, this.problem.initial);
 				for(var i=0; i<succesors.length; i++){
-					this.strategy.add(this.queue, getNode(succesors[i], node));
+					this.strategy.add(this.queue, getNode(node.start_position, succesors[i], node));
 				}
 				this.strategy.add(this.repeated, node.position);
 			}

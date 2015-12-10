@@ -1,7 +1,7 @@
 var Astar = function(){
 }
 
-Astar.prototype.add = function(queue, node){
+Astar.prototype.add = function(queue, node){ //Se agrega el nodo a la cola 
 	queue.push(node);
 	//sorts the queue from least to greatest acording to f function
 	if(queue.length > 1){
