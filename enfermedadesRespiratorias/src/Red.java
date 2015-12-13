@@ -54,16 +54,17 @@ public class Red {
     }
     
     public double[]  CalcularGripaComun(String[] sintomas){ // Este funcion calcula las probabilidades de 
-     
+        Enfermedades = new BayesNet();
+        TosSeca = Enfermedades.createNode("Tos Seca");
         TosSeca.addOutcomes("True","False"); 
         TosSeca.setProbabilities(0.7,0.3); //la probabilidad de la tos seca
-        
+        Fiebre38 = Enfermedades.createNode("Fiebre de 38°");
         Fiebre38.addOutcomes("True","False");
         Fiebre38.setProbabilities(0.5,0.5); //La probabilidad de que tenga Fiebre de 38°.
-       
+        EscurrimientoNasal = Enfermedades.createNode("Escurrimiento nasal");
         EscurrimientoNasal.addOutcomes("True","False");
         EscurrimientoNasal.setProbabilities(0.7,0.3); //La probabilidad de que tenga escurrimiento nasal.
-        
+        GripaComun = Enfermedades.createNode("Gripa Comun");
         GripaComun.setParents(Arrays.asList(TosSeca,Fiebre38,EscurrimientoNasal));
         GripaComun.addOutcomes("True","False");
         GripaComun.setProbabilities(
@@ -93,16 +94,21 @@ public class Red {
         else{evidence.put(Fiebre38, "False");}
         if(sintomas[2]=="True"){evidence.put(EscurrimientoNasal, "True");}
         else{evidence.put(EscurrimientoNasal, "False");}
+        inferer.setEvidence(evidence);
         double[] probabilidadGripaComun = inferer.getBeliefs(GripaComun); // se calcula la probabilidad de gripa comun.
         return probabilidadGripaComun;
     }
     
     public double[]  CalcularLaringitis(String sintomas,double[] GC){// Esta funcion calcula la probabilidad de 
         //que se presente laringitis.
+        Enfermedades = new BayesNet();
+        GripaComun = Enfermedades.createNode("Gripa Comun");
         GripaComun.addOutcomes("True","False");
         GripaComun.setProbabilities(GC[0],GC[1]);// probabilidad de que tenga gripa comun
+        Ronquera = Enfermedades.createNode("Ronquera");
         Ronquera.addOutcomes("True","False");
         Ronquera.setProbabilities(0.9,0.1);//probabilidad de que tenga ronquera.
+        Laringitis = Enfermedades.createNode("Laringitis");
         Laringitis.setParents(Arrays.asList(GripaComun,Ronquera));
         Laringitis.addOutcomes("True","False");
         Laringitis.setProbabilities(
@@ -112,28 +118,52 @@ public class Red {
         //GripaComun==False);
                 0.1,0.9, //Ronquera==True.
                 0.01,0.99); //Ronquera==False.
-        IBayesInferer inferer = new JunctionTreeAlgorithm();
-        inferer.setNetwork(Enfermedades);
+        IBayesInferer infererL = new JunctionTreeAlgorithm();
+        infererL.setNetwork(Enfermedades);
         Map<BayesNode,String> evidence = new HashMap<>();
         evidence.put(GripaComun, "True");
         if(sintomas=="True"){evidence.put(Ronquera, "True");}
         else{evidence.put(Ronquera, "False");}
-        double[] probabilidadLaringitis = inferer.getBeliefs(Laringitis); //se calcula la probabilidad de Laringitis
+        infererL.setEvidence(evidence);
+        double[] probabilidadLaringitis = infererL.getBeliefs(Laringitis); //se calcula la probabilidad de Laringitis
         return probabilidadLaringitis;
     }
     
      public double[]  CalcularAsma(String[] sintomas){ //Esta funcion calcula la probabilidad de que se presente
          //asma.
+        Enfermedades = new BayesNet();
+        TosSeca = Enfermedades.createNode("Tos Seca");
         TosSeca.addOutcomes("True","False"); 
         TosSeca.setProbabilities(0.7,0.3); //la probabilidad de la tos seca
+        TosFlemas = Enfermedades.createNode("Tos con Flemas");
         TosFlemas.addOutcomes("True","False");
         TosFlemas.setProbabilities(0.7,0.3); //La probabilidad de que tenga Fiebre de 38°.
+        SilvidoRespirar = Enfermedades.createNode("Silvido al respirar");
         SilvidoRespirar.addOutcomes("True","False");
         SilvidoRespirar.setProbabilities(0.7,0.3); //La probabilidad de que tenga escurrimiento nasal.
+        Asma = Enfermedades.createNode("Asma");
         Asma.setParents(Arrays.asList(TosSeca,TosFlemas,SilvidoRespirar));
         Asma.addOutcomes("True","False");
-        IBayesInferer inferer = new JunctionTreeAlgorithm();
-        inferer.setNetwork(Enfermedades);
+        Asma.setProbabilities(
+        //Tos seca=True, TOsFlemas=True, Silvido Respirar = True.
+                0.9,0.1,
+                //TosSeca=True, TosFlemas=True, SilvidoRespirar=False.
+                0.6,0.1,
+                //TosSeca=True,TosFlemas=False,SilvidoRespirar=True.
+                0.9,0.1,
+                //TosSeca=True,TosFlemas=False,SilvidoRespirar=False.
+                0.6,0.1,
+                //TosSeca=Falase,TosFlemas=True,SilvidoRespirar=True
+                0.9,0.1,
+                //TosSeca=False,TosFlemas=True,SilvidoRespirar=False.
+                0.6,0.1,
+                //TosSeca=False,TosFlemas=False,SilvidoRespirar=True.
+                0.5,0.5,
+                //TosSeca=False,TosFlemas=False,SilvidoRespirar=False.
+                0.01,0.99
+        );
+        IBayesInferer infererA = new JunctionTreeAlgorithm();
+        infererA.setNetwork(Enfermedades);
         Map<BayesNode,String> evidence = new HashMap<>();
         if(sintomas[0]=="True"){evidence.put(TosSeca, "True");} //si ha sido seleccionada la casilla de Tos seca.
         else{evidence.put(TosSeca, "False");} //si no ha sido seleccionada la casilla de Tos seca.
@@ -141,30 +171,48 @@ public class Red {
         else{evidence.put(TosFlemas, "False");}
         if(sintomas[2]=="True"){evidence.put(SilvidoRespirar, "True");}
         else{evidence.put(SilvidoRespirar, "False");}
-        double[] probabilidadAsma = inferer.getBeliefs(Asma);//Calcula la probabilidad de que tenga asma.
+        infererA.setEvidence(evidence);
+        double[] probabilidadAsma = infererA.getBeliefs(Asma);//Calcula la probabilidad de que tenga asma.
         return probabilidadAsma; 
      }
      
      public double[]  CalcularBronquitis(String[] sintomas){//Esta funcion calcula la probabilidad de que se
-         //prensete bronquitis
+        //presente bronquitis
+        Enfermedades = new BayesNet();
+        FiebreMas38 = Enfermedades.createNode("Fiebre de 38 o mas");
         FiebreMas38.addOutcomes("True","False");
         FiebreMas38.setProbabilities(0.8,0.2); //La probabilidad de que tenga Fiebre de 38° a 39°.
-        CuerpoCortado.setParents(Arrays.asList(FiebreMas38));
-        CuerpoCortado.addOutcomes("True","False");
-        CuerpoCortado.setProbabilities(
-            0.7,0.3, //Fiebre de 38 = True.
-            0.1,0.9 //Fiebre de 38 = False.
-        );
+        TosFlemas = Enfermedades.createNode("Tos con flemas");
         TosFlemas.addOutcomes("True","False");
         TosFlemas.setProbabilities(0.85,0.25); //La probabilidad de que tenga Fiebre de 38°.
+        OpresionPecho = Enfermedades.createNode("Opresion en el pecho");
         OpresionPecho.setParents(Arrays.asList(TosFlemas));
         OpresionPecho.addOutcomes("True","False");
         OpresionPecho.setProbabilities(
                 0.6,0.4, //Tos con flemas = True
                 0.4,0.6 //Tos con flemas = False
         );
-        Bronquitis.setParents(Arrays.asList(FiebreMas38,CuerpoCortado,TosFlemas,OpresionPecho));
+        Bronquitis = Enfermedades.createNode("Bronquitis");
+        Bronquitis.setParents(Arrays.asList(FiebreMas38,TosFlemas,OpresionPecho));
         Bronquitis.addOutcomes("True","False");
+        Bronquitis.setProbabilities(
+                //FiebreMas38=True,TosFlemas=True,OpresionPecho=True.
+                0.9,0.1,
+                //FiebreMas38=True,TosFlemas=True,OpresionPecho=False.
+                0.6,0.4,
+                //FiebreMas38=True,TosFlemas=False,OpresionPecho=True.
+                0.7,0.3,
+                //fiebreMas38=True,TosFLemas=False,OpresionPecho=False.
+                0.3,0.7,
+                //FiebreMas38=False,TosFlemas=True,OpresionPecho=True.
+                0.7,0.3,
+                //FiebreMas38=False,TosFlemas=True,OpresionPecho=False.
+                0.2,0.8,
+                //FiebreMas38=False,TosFLemas=False,OpresionPEcho=True.
+                0.3,0.7,
+                //FiebreMas38=False,TosFLemas=False,OpresionPecho=False.
+                0.01,0.99
+        );
         IBayesInferer inferer = new JunctionTreeAlgorithm();
         inferer.setNetwork(Enfermedades);
         Map<BayesNode,String> evidence = new HashMap<>();
@@ -176,22 +224,48 @@ public class Red {
         else{evidence.put(TosFlemas, "False");}
         if(sintomas[3]=="True"){evidence.put(OpresionPecho, "True");}
         else{evidence.put(OpresionPecho, "False");}
+        inferer.setEvidence(evidence);
         double[] probabilidadBronquitis = inferer.getBeliefs(Bronquitis); //calcula la probabilidad de bronquitis.
         return probabilidadBronquitis; 
      }
      
      public double[]  CalcularPulmonia(String[] sintomas){// Esta funcion calcula la probabilidad de que se
          //Presente bronquitis
+        Enfermedades = new BayesNet();
+        Fiebre40 = Enfermedades.createNode("Fiebre de 40");
         Fiebre40.addOutcomes("True","False");
         Fiebre40.setProbabilities(0.85,0.25); //La probabilidad de que tenga fiebre de 40°.
+        CuerpoCortado = Enfermedades.createNode("Cuerpo Cortado");
         CuerpoCortado.setParents(Arrays.asList(Fiebre40));
         CuerpoCortado.addOutcomes("True","False");
         CuerpoCortado.setProbabilities(
             0.9,0.1, //Fiebre de 38 = True.
             0.1,0.9 //Fiebre de 38 = False.
         );
+        TosFlemas = Enfermedades.createNode("Tos con FLemas");
         TosFlemas.addOutcomes("True","False");
         TosFlemas.setProbabilities(0.8,0.2); //La probabilidad de que tenga Fiebre de 38°.
+        Pulmonia = Enfermedades.createNode("Pulmonia");
+        Pulmonia.setParents(Arrays.asList(Fiebre40,CuerpoCortado,TosFlemas));
+        Pulmonia.addOutcomes("True","False");
+        Pulmonia.setProbabilities(
+        //Fiebre40=True,CuerpoCortado=true,TosFlemas=True,
+                0.9,0.1,
+                //Fiebre=True,CuerpoCortado=True,TosFlemas=False.
+                0.6,0.4,
+                //Fiebre40=True,CuerpoCortado=False,TosFlemas=True.
+                0.7,0.3,
+                //Fiebre40=True,CuerpoCortado=False,TosFlemas=False.
+                0.3,7,
+                //Fiebre40=False,CuerpoCortado=True,TosFlemas=True.
+                0.6,0.4,
+                //Fiebre40=False,CuerpoCortado=True,TosFlemas=False.
+                0.1,0.9,
+                //Fiebre40=False,CuerpoCortado=False,TosFlemas=True.
+                0.4,0.6,
+                //Fiebre40=False,CuerpoCortado=False,TosFlemas=False.
+                0.01,0.99
+        );
         IBayesInferer inferer = new JunctionTreeAlgorithm();
         inferer.setNetwork(Enfermedades);
         Map<BayesNode,String> evidence = new HashMap<>();
@@ -201,6 +275,7 @@ public class Red {
         else{evidence.put(CuerpoCortado, "False");}
         if(sintomas[2]=="True"){evidence.put(TosFlemas, "True");}
         else{evidence.put(TosFlemas, "False");}
+        inferer.setEvidence(evidence);
         double[] probabilidadPulmonia = inferer.getBeliefs(Pulmonia);//Calcula la probabilidad de pulmonia.
         return probabilidadPulmonia; 
      }

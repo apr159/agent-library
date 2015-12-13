@@ -188,7 +188,6 @@ public class NewJFrame extends javax.swing.JFrame {
         String OP="False"; String R="False"; String SilR="False"; String SonR="False"; 
         String F38="False"; String FM38="False"; String F40="False";
         //dependiendo si se selecciona el sintoma se cambian a True.
-        int cont=0;
         if(TosSeca.isSelected()){TS="True";}
         if(TosFlemas.isSelected()){TF="True";}
         if(CuerpoCortado.isSelected()){CC="True";}
@@ -211,30 +210,27 @@ public class NewJFrame extends javax.swing.JFrame {
         double[] laringitis;
         laringitis = enfermedades.CalcularLaringitis(R, gripaComun); // se obtiene la probabilidad de que tenga laringitis
         String[] sintomasA = new String[3];
+        pl=laringitis[0]*100;
+        probabilidades=pl+"%";
+        jTextField2.setText(probabilidades); //imprime la probabilidad de que tenga laringitis.
         sintomasA[0]=TS; sintomasA[1]=TF; sintomasA[2]=SilR;
         double[] asma;
         asma = enfermedades.CalcularAsma(sintomasA); // se obtiene la probabilidad de que tenga asma.
+        pa=asma[0]*100;
+        probabilidades=pa+"%";
+        jTextField3.setText(probabilidades); //imprime la probabilidad de que tenga asma.
         String[] sintomasB = new String[4];
         sintomasB[0]=TF; sintomasB[1]=OP; sintomasB[2]=FM38; sintomasB[3]=CC;
         double[] bronquitis;
         bronquitis = enfermedades.CalcularBronquitis(sintomasB); // se obtiene la probabilidad de que tenga bronquitis.
+        pb=bronquitis[0]*100;
+         probabilidades=pb+"%";
+        jTextField4.setText(probabilidades); //imprime la probabilidad de que tenga bronquitis.
         String[] sintomasP = new String[3];
         sintomasP[0]=F40; sintomasP[1]=CC; sintomasP[2]=TF;
         double[] pulmonia;
         pulmonia = enfermedades.CalcularPulmonia(sintomasP); // se obtiene la probabilidad de que tenga pulmonia.
-        
-        
-        pl=laringitis[0]*100;
-        pa=asma[0]*100;
-        pb=bronquitis[0]*100;
         pp=pulmonia[0]*100;
-        
-        probabilidades=pl+"%";
-        jTextField2.setText(probabilidades); //imprime la probabilidad de que tenga laringitis.
-        probabilidades=pa+"%";
-        jTextField3.setText(probabilidades); //imprime la probabilidad de que tenga asma.
-        probabilidades=pb+"%";
-        jTextField4.setText(probabilidades); //imprime la probabilidad de que tenga bronquitis.
         probabilidades=pp+"%";
         jTextField5.setText(probabilidades); //imprime la probabilidad de que tenga pulmonia.
     }//GEN-LAST:event_jButton1ActionPerformed
