@@ -42,7 +42,7 @@ public class Club_IA implements AIInterface {
 		this.inputKey = new Key();
 		cc = new CommandCenter();
 		frameData = new FrameData();
-
+		
 		tablaEstados = ioEstados.readFile();
 		for(ArrayList<String> i: tablaEstados){
 			for(String j: i){ System.out.print(j + " "); }
@@ -90,21 +90,24 @@ public class Club_IA implements AIInterface {
 				
 				newState = new ArrayList<String>();
 				newAction = new ArrayList<Double>();
-				newState.add(String.valueOf(cc.getDistanceX()));
-				newState.add(String.valueOf(cc.getMyHP()));
-				newState.add(String.valueOf(cc.getEnemyHP()));
-				newState.add(cc.getEnemyCharacter().state.toString());
-				newState.add(cc.getEnemyCharacter().action.toString());
+				
+				// agrega información del estado en string
+				newState.add(String.valueOf(cc.getDistanceX())); // distancia en X
+				newState.add(String.valueOf(cc.getMyHP()));  // mi HP
+				newState.add(String.valueOf(cc.getEnemyHP()));  // enemigo HP
+				newState.add(cc.getEnemyCharacter().state.toString());  // estado del enemigo
+				newState.add(cc.getEnemyCharacter().action.toString());  // accion del enemigo
 				newState = sth.discretizador(newState);
 				
 				 
 				
 				if(!newState.equals(lastState)){
 				
-					if(tablaEstados.contains(newState)){
-						System.out.println("newState en tablaEstados.");
+					if(tablaEstados.contains(newState)){ // se ejecuta si el estado actual ya  existe en la tabla
+						System.out.println("newState en tablaEstados."); 
 						
-						int indexNewState = tablaEstados.indexOf(newState);
+						
+						int indexNewState = tablaEstados.indexOf(newState); 
 						int indexLastState = tablaEstados.indexOf(lastState);
 						
 						int indexNewAction = indexNewState;
@@ -116,23 +119,27 @@ public class Club_IA implements AIInterface {
 						System.out.println("indexLastAction = " + indexLastAction);
 						System.out.println("indexNewAction = " + indexNewAction);
 						
+						// copia el estado y acción desde la tabla
 						newState = tablaEstados.get(indexNewState);
 						newAction = tablaAccionesDouble.get(indexNewAction);
 						
+						// control** , imprime valores numéricos de las acciones
 						for(Double i: newAction){
 							System.out.print(i + " ");
 						}
 						System.out.println(" ");
 						
-						maxDouble = ql.getMaxDouble(newAction);
-						maxString = ql.getMaxString(newAction);
+						maxDouble = ql.getMaxDouble(newAction); //regresa el valor numérico más alto
+						maxString = ql.getMaxString(newAction); //regresa string para ejecutar acción
 						System.out.println("maxDouble = " + maxDouble);
 						int indexNewMaxAction = newAction.indexOf(maxDouble);
 						
-						cc.commandCall(maxString);
+						cc.commandCall(maxString); // ejecuta acción
 						int myHp = cc.getMyHP();
 						int enemyHp = cc.getEnemyHP();
 						newHpAbs = myHp - enemyHp;
+						
+						//actualiza Q(s, a) anterior al actual
 						ql.learn(lastAction, indexNewMaxAction,  maxDouble, ql.getReward(newState, newHpAbs, lastHpAbs));
 						
 						lastState = newState;
@@ -140,16 +147,22 @@ public class Club_IA implements AIInterface {
 						lastHpAbs = newHpAbs;
 						
 					}
-					else{
+					else{ //se ejecuta si no existe el estado actual en la tabla
 						System.out.println("newState NO en tablaEstados.");
 						
+						
+						//%%%%%%%%%%%%%%%%%% crea Q(s, a) y lo agrega a tabla
 						tablaEstados.add(newState);
 						ArrayList<Double> newActions = new ArrayList<Double>();
 						for(Double i: lastAction){
 							newActions.add(ran.nextDouble());
 						}
 						tablaAccionesDouble.add(newActions);
-
+						
+						//%%%%%%%%%%%%%%%%%%%
+						
+						
+						// a partir de aquí es el mismo algoritmo que sigue cuando existe un estato en la tabla
 						int indexNewState = tablaEstados.indexOf(newState);
 						int indexLastState = tablaEstados.indexOf(lastState);
 						

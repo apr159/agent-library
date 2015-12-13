@@ -1,7 +1,15 @@
 import java.util.*;
 
 public class StateHandle {
-	
+	/**
+	 * Esta clase fue creada con el motivo de modificar el estado recibido para adecuarlo
+	 * a un estado discretizado y por lo tanto, más fácil de manipular.
+	 * 
+	 * La discretización se da principalmente en la distancia medida en X entre el jugador
+	 * 1 y el jugador 2, en donde a partir de un valor int [0, >400] se reduce a un 
+	 * int [1, 3], según se considere cerca, medio, o lejos.
+	 * 
+	 */
 	public ArrayList<String> discretizador(ArrayList<String> stateString){
 		
 		ArrayList<String> stateDiscret = new ArrayList<String>();
