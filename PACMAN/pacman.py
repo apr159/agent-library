@@ -47,7 +47,7 @@ from util import nearestPoint
 from util import manhattanDistance
 import util, layout
 import sys, types, time, random, os
-
+import subprocess
 ###################################################
 # YOUR INTERFACE TO THE PACMAN WORLD: A GameState #
 ###################################################
@@ -270,6 +270,7 @@ class ClassicGameRules:
     """
     def __init__(self, timeout=30):
         self.timeout = timeout
+        subprocess.call(['speech-dispatcher'])
 
     def newGame( self, layout, pacmanAgent, ghostAgents, display, quiet = False, catchExceptions=False):
         agents = [pacmanAgent] + ghostAgents[:layout.getNumGhosts()]
@@ -289,11 +290,13 @@ class ClassicGameRules:
         if state.isLose(): self.lose(state, game)
 
     def win( self, state, game ):
-        if not self.quiet: print "Pacman emerges victorious! Score: %d" % state.data.score
+        if not self.quiet: 
+          print( "Pacman emerges victorious! Score: %d" % state.data.score)
+          subprocess.call(['spd-say', '"win"'])
         game.gameOver = True
 
     def lose( self, state, game ):
-        if not self.quiet: print "Pacman died! Score: %d" % state.data.score
+        if not self.quiet: print ("Pacman died! Score: %d" % state.data.score)
         game.gameOver = True
 
     def getProgress(self, game):
@@ -301,9 +304,9 @@ class ClassicGameRules:
 
     def agentCrash(self, game, agentIndex):
         if agentIndex == 0:
-            print "Pacman crashed"
+            print("Pacman crashed")
         else:
-            print "A ghost crashed"
+            print("A ghost crashed")
 
     def getMaxTotalTime(self, agentIndex):
         return self.timeout
@@ -457,6 +460,20 @@ class GhostRules:
 #############################
 # FRAMEWORK TO START A GAME #
 #############################
+def dataRegister(archivo,datos):
+  i=0
+  infile = open(archivo,'r')
+  for line in infile:
+    i=i+1
+  infile.close()
+  infile = open(archivo, 'a')
+  datos.insert(0,(1+i));
+  #print i
+  datos=str( datos).strip('[]')
+  datos = datos.replace(',', '')+'\n'
+  infile.writelines(datos)
+  infile.close()
+    #print estados
 
 def default(str):
     return str + ' [Default: %default]'
@@ -573,7 +590,7 @@ def readCommand( argv ):
 
     # Special case: recorded games don't use the runGames method or args structure
     if options.gameToReplay != None:
-        print 'Replaying recorded game %s.' % options.gameToReplay
+        print('Replaying recorded game %s.' % options.gameToReplay)
         import cPickle
         f = open(options.gameToReplay)
         try: recorded = cPickle.load(f)
@@ -633,6 +650,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     games = []
 
     for i in range( numGames ):
+        print i
         beQuiet = i < numTraining
         if beQuiet:
                 # Suppress output and graphics
@@ -658,10 +676,13 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         scores = [game.state.getScore() for game in games]
         wins = [game.state.isWin() for game in games]
         winRate = wins.count(True)/ float(len(wins))
-        print 'Average Score:', sum(scores) / float(len(scores))
-        print 'Scores:       ', ', '.join([str(score) for score in scores])
-        print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
-        print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
+        print('Average Score:', sum(scores) / float(len(scores)))
+        print('Scores:       ', ', '.join([str(score) for score in scores]))
+        print('Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate))
+        #print('Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins]))
+        datos= [sum(scores) / float(len(scores)), wins.count(True)]
+        subprocess.call(['spd-say', '"End"'])
+        #dataRegister("registro",datos)
 
     return games
 
