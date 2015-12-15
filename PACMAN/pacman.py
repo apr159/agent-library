@@ -682,7 +682,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         #print('Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins]))
         datos= [sum(scores) / float(len(scores)), wins.count(True)]
         subprocess.call(['spd-say', '"End"'])
-        #dataRegister("registro",datos)
+        dataRegister("registro",datos)
 
     return games
 
