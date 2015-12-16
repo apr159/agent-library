@@ -6,7 +6,8 @@
 
 /**
  *
- * @author Aivlis
+ * @author Silvia Sánchez. 
+ * @author Joana Lara.
  */
 public class NewJFrame extends javax.swing.JFrame {
     /**
@@ -49,21 +50,20 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("DIAGNÓTICO DE ENFERMEDADES RESPIRATORIAS COMÚNES.");
+        setTitle("DIAGNÓSTICO DE ENFERMEDADES RESPIRATORIAS COMÚNES.");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(600, 600));
         getContentPane().setLayout(null);
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Calibri Light", 3, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Seleccione los sintomas.");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(190, 40, 220, 23);
 
-        TosSeca.setForeground(new java.awt.Color(255, 255, 255));
         TosSeca.setText("Tos seca");
         TosSeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,12 +73,10 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().add(TosSeca);
         TosSeca.setBounds(70, 90, 80, 23);
 
-        TosFlemas.setForeground(new java.awt.Color(255, 255, 255));
         TosFlemas.setText("Tos con flemas");
         getContentPane().add(TosFlemas);
         TosFlemas.setBounds(70, 140, 110, 23);
 
-        Fiebre38.setForeground(new java.awt.Color(255, 255, 255));
         Fiebre38.setText("Temperatura menor o igual a 38°");
         Fiebre38.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +86,6 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().add(Fiebre38);
         Fiebre38.setBounds(70, 190, 220, 23);
 
-        Fiebre38Mas.setForeground(new java.awt.Color(255, 255, 255));
         Fiebre38Mas.setText("Temperatura de 38 ° a 39°");
         Fiebre38Mas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,37 +95,31 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().add(Fiebre38Mas);
         Fiebre38Mas.setBounds(70, 240, 180, 23);
 
-        Fiebre40.setForeground(new java.awt.Color(255, 255, 255));
         Fiebre40.setText("Temperatura mayor o igual a 40°");
         getContentPane().add(Fiebre40);
         Fiebre40.setBounds(70, 290, 220, 23);
 
-        EscurrimientoNasal.setForeground(new java.awt.Color(255, 255, 255));
         EscurrimientoNasal.setText("Escurrimiento Nasal");
         getContentPane().add(EscurrimientoNasal);
         EscurrimientoNasal.setBounds(70, 350, 180, 23);
 
-        Ronquera.setForeground(new java.awt.Color(255, 255, 255));
         Ronquera.setText("Ronquera");
         getContentPane().add(Ronquera);
         Ronquera.setBounds(350, 90, 90, 23);
 
-        SonidoRespirar.setForeground(new java.awt.Color(255, 255, 255));
+        SonidoRespirar.setBackground(new java.awt.Color(153, 153, 153));
         SonidoRespirar.setText("Sonido al respirar");
         getContentPane().add(SonidoRespirar);
-        SonidoRespirar.setBounds(350, 140, 120, 23);
+        SonidoRespirar.setBounds(350, 140, 140, 23);
 
-        OpresionPecho.setForeground(new java.awt.Color(255, 255, 255));
         OpresionPecho.setText("Opresion en el pecho");
         getContentPane().add(OpresionPecho);
         OpresionPecho.setBounds(350, 190, 140, 23);
 
-        SilvidoRespiratorio.setForeground(new java.awt.Color(255, 255, 255));
-        SilvidoRespiratorio.setText("Silvido Respiratorio");
+        SilvidoRespiratorio.setText("Silbido Respiratorio");
         getContentPane().add(SilvidoRespiratorio);
         SilvidoRespiratorio.setBounds(350, 240, 150, 23);
 
-        CuerpoCortado.setForeground(new java.awt.Color(255, 255, 255));
         CuerpoCortado.setText("Cuerpo Cortado");
         getContentPane().add(CuerpoCortado);
         CuerpoCortado.setBounds(350, 290, 120, 23);
@@ -186,13 +177,13 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Simplified Arabic", 3, 14)); // NOI18N
         jLabel7.setText("Probabilidad de que presenta la enfermedad.");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(150, 430, 280, 24);
+        jLabel7.setBounds(150, 430, 280, 19);
 
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Aivlis\\Documents\\7semestre\\IA\\10363849_10152259708401109_2150358859519395947_n.jpg")); // NOI18N
-        jLabel8.setText("Consulte a su médico.");
-        jLabel8.setToolTipText("");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(0, 0, 590, 570);
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setForeground(new java.awt.Color(204, 0, 204));
+        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Cruz\\Desktop\\enfermedadesRespiratorias\\petalos-de-lilas-fondos.jpg")); // NOI18N
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(0, 0, 590, 570);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,11 +216,11 @@ public class NewJFrame extends javax.swing.JFrame {
         if(Fiebre38.isSelected()){F38="True";}
         if(Fiebre40.isSelected()){F40="True";}
         if(Fiebre38Mas.isSelected()){FM38="True";}
-        String[] sintomasGC = new String[3]; //crea un arreglo de string
-        sintomasGC[0]=TS; sintomasGC[1]=EN; sintomasGC[2]=F38;
-        double[] gripaComun;
+        String[] sintomasGC = new String[3]; //crea un arreglo de string 
+        sintomasGC[0]=TS; sintomasGC[1]=EN; sintomasGC[2]=F38; //se agreagan los valores "True" o "False" de los sintomas al arreglo.
+        double[] gripaComun; //se crea un arreglo de double para meter la probabilidad de gripa comun.
         gripaComun = enfermedades.CalcularGripaComun(sintomasGC); // se obtienen las probabilidades de que tenga gripa comun
-        pgc=gripaComun[0]*100;
+        pgc=gripaComun[0]*100; //Se multiplica por 100 para la probabilidad salga base 100.
         String probabilidades;
         probabilidades=pgc+"%";
         jTextField1.setText(probabilidades); //imprime la probabilidad de que tenga gripa comun.
@@ -320,7 +311,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

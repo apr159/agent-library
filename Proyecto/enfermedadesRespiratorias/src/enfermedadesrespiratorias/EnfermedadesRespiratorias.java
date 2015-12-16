@@ -7,7 +7,8 @@ package enfermedadesrespiratorias;
 
 /**
  *
- * @author Aivlis
+ * @author Silvia Sánchez.
+ * @author Joana Lara
  */
 public class EnfermedadesRespiratorias {
 

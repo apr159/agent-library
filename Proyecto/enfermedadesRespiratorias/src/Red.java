@@ -12,26 +12,25 @@ import org.eclipse.recommenders.jayes.inference.junctionTree.JunctionTreeAlgorit
  * @author Aivlis
  */
 public class Red {
-    BayesNet Enfermedades; 
-//se crea la red.    
-    BayesNode TosSeca; 
-    BayesNode TosFlemas; 
-    BayesNode Fiebre38; 
-    BayesNode FiebreMas38; 
-    BayesNode Fiebre40;
-    BayesNode SilvidoRespirar;
-    BayesNode SonidoRespirar;
-    BayesNode Ronquera; 
-    BayesNode OpresionPecho;
-    BayesNode CuerpoCortado; 
-    BayesNode EscurrimientoNasal; 
-    BayesNode GripaComun; 
-    BayesNode Asma; 
-    BayesNode Laringitis; 
-    BayesNode Pulmonia; 
-    BayesNode Bronquitis; 
+    BayesNet Enfermedades;  //se crea la red.  
+    BayesNode TosSeca;  //Se crea el nodo de Tos Seca.
+    BayesNode TosFlemas;  //Se crea el nodo de Tos con Flemas.
+    BayesNode Fiebre38;  //Se crea el nodo de Fiebre de 38°.
+    BayesNode FiebreMas38; //Se crea el nodo de Fiebre mayor a 38°.
+    BayesNode Fiebre40; //Se crea el nodo de Fiebre de 40.°
+    BayesNode SilvidoRespirar; //Se crea el nodo de silvido al respirar.
+    BayesNode SonidoRespirar; //Se crea el nodo de Sonido al respirar. 
+    BayesNode Ronquera; //Se crea el nodo de ronquera.
+    BayesNode OpresionPecho; //Se crea el nodo de Opresion en el pecho
+    BayesNode CuerpoCortado; //Se crea el nodo de cuerpo cortado.
+    BayesNode EscurrimientoNasal; //Se crea el nodo de escurrimiento nasal.
+    BayesNode GripaComun; //se crea el nodo de gripa comun.
+    BayesNode Asma; //Se crea el nodo de Asma.
+    BayesNode Laringitis; //Se crea el nodo de Laringitis.
+    BayesNode Pulmonia; //Se crea el nodo de pulmonia.
+    BayesNode Bronquitis; //Se crea el nodo de bronquitis.
 
-    public Red() {
+    public Red() { //Es el constructor de la clase Red.
         this.Enfermedades = new BayesNet();
         this.Bronquitis = Enfermedades.createNode("Bronquitis");
         this.Pulmonia = Enfermedades.createNode("Pulmonia");
@@ -53,18 +52,18 @@ public class Red {
     }
     
     public double[]  CalcularGripaComun(String[] sintomas){ // Este funcion calcula las probabilidades de 
-        Enfermedades = new BayesNet();
-        TosSeca = Enfermedades.createNode("Tos Seca");
-        TosSeca.addOutcomes("True","False"); 
-        TosSeca.setProbabilities(0.7,0.3); //la probabilidad de la tos seca
-        Fiebre38 = Enfermedades.createNode("Fiebre de 38°");
-        Fiebre38.addOutcomes("True","False");
+        Enfermedades = new BayesNet(); //se inicializa la red Enfermedades.
+        TosSeca = Enfermedades.createNode("Tos Seca"); //se crea el nodo TosSeca, que es de la red Enfermedades.
+        TosSeca.addOutcomes("True","False"); //Se le asignan valores "True" o "False".
+        TosSeca.setProbabilities(0.7,0.3); //Se asigna la probabilidad de la tos seca
+        Fiebre38 = Enfermedades.createNode("Fiebre de 38°"); //Se crea el nodo de Fiebre38, que es parte de la red Enfermedades. 
+        Fiebre38.addOutcomes("True","False"); //Se le asignan valores "True" o "False".
         Fiebre38.setProbabilities(0.5,0.5); //La probabilidad de que tenga Fiebre de 38°.
-        EscurrimientoNasal = Enfermedades.createNode("Escurrimiento nasal");
-        EscurrimientoNasal.addOutcomes("True","False");
+        EscurrimientoNasal = Enfermedades.createNode("Escurrimiento nasal"); //Se crea el nodo EscurrimientoNazal
+        EscurrimientoNasal.addOutcomes("True","False"); //Se le asignan valores "True" o "False".
         EscurrimientoNasal.setProbabilities(0.7,0.3); //La probabilidad de que tenga escurrimiento nasal.
         GripaComun = Enfermedades.createNode("Gripa Comun");
-        GripaComun.setParents(Arrays.asList(TosSeca,Fiebre38,EscurrimientoNasal));
+        GripaComun.setParents(Arrays.asList(TosSeca,Fiebre38,EscurrimientoNasal));//Se asignan los padres de gripa comun
         GripaComun.addOutcomes("True","False");
         double P[]=new double[16];
         int cont1=0;
