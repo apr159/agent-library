@@ -1,0 +1,25 @@
+var Caverna = require("./cueva");
+
+var laberinto = function (m, n) { //crear laberinto	
+var cueva1 = new Caverna();
+
+var laberinto2 = new Array();
+
+for (var i = 0; i < m; i++) {
+	laberinto2[i]= new Array();
+};
+
+for (var i = 0; i < m; i++) {
+	for (var j = 0; j < n; j++) {
+		cueva1.setPosicion(i,j);
+		laberinto2[i][j]=cueva1;
+	};
+};
+
+/*for (var i = 0; i <= m; i++) {
+	for (var j = 0; j >= n; j++) {
+		cueva1.setPosicion(i,j);
+		laberinto1[i][j]=cueva1; 
+	};
+};*/
+}
