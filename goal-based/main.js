@@ -10,3 +10,10 @@ var problem = new Problem({glass1:4,glass2:3});
 var search = new Search(problem,strategy);
 
 search.run();
+/*
+<<<<<<< HEAD
+//Equipo Los Omegas
+=======
+//Equipo los omegas
+>>>>>>> master
+*/
